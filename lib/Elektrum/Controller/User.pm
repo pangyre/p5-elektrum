@@ -1,13 +1,10 @@
-package Elektrum::Controller::Node;
+package Elektrum::Controller::User;
 use Moose;
 use namespace::autoclean;
+
 BEGIN { extends "Catalyst::Controller" }
 
-has "rs" =>
-    is => "rw",
-    ;
-
-sub base : Chained PathPart("n") CaptureArgs(0) { 
+sub base : Chained PathPart("user") CaptureArgs(0) { 
     my ( $self, $c ) = @_;
 }
 
@@ -21,14 +18,6 @@ sub with_id : Chained("base") PathPart("") CaptureArgs(1) {
 }
 
 sub single : Chained("item") PathPart("") Args(0) {
-    my ( $self, $c ) = @_;
-}
-
-sub atom : Chained("list") Args(0) {
-    my ( $self, $c ) = @_;
-}
-
-sub atom_single : Chained("with_id") PathPart("atom") Args(0) {
     my ( $self, $c ) = @_;
 }
 
