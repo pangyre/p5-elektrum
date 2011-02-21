@@ -1,11 +1,11 @@
-package Eleketurm::Schema::Result::Node;
+package Elektrum::Schema::Result::Node;
 use warnings;
 use strict;
 use parent "DBIx::Class::Core";
 
 __PACKAGE__->load_components(qw( Tree::Mobius ));
 
-__PACKAGE__->table("node");
+__PACKAGE__->table("nodes");
 
 __PACKAGE__->add_columns(
     id => {
@@ -16,37 +16,51 @@ __PACKAGE__->add_columns(
         is_nullable => 0,
         size => 10,
     },
+    "title",
+    { data_type => "varchar", default_value => "", is_nullable => 0, size => 255 },
+    "body",
+    { data_type => "mediumtext", is_nullable => 1 },
+    "theme",
+    { data_type => "varchar", is_nullable => 1, size => 255 },
+    "slug",
+    { data_type => "text", is_nullable => 1 },
+    "mature",
+    {
+        data_type => "varchar",
+        default_value => "yes",
+        is_nullable => 0,
+        size => 10,
+    },
+    "commentflag",
+    {
+        data_type => "enum",
+        default_value => "on",
+        extra => { list => ["on", "off", "closed", "hide"] },
+        is_nullable => 1,
+    },
+    "created",
+    {
+        data_type => "datetime",
+        datetime_undef_if_invalid => 1,
+        is_nullable => 1,
+    },
+    "updated",
+    {
+        data_type => "timestamp",
+        datetime_undef_if_invalid => 1,
+        default_value => \q{current_timestamp},
+        is_nullable => 0,
+    },
+    "status",
+    {
+        data_type => "enum",
+        default_value => "draft",
+        extra => { list => ["publish", "draft", "deleted"] },
+        is_nullable => 1,
+    },
     );
 
-
-__PACKAGE__->add_columns(
-    mobius_a => { data_type => "integer", 
-                  extra => { unsigned => 1 },
-                  is_nullable => 1,
-                  size => 11 },
-    mobius_b => { data_type => "integer",
-                    extra => { unsigned => 1 },
-                    is_nullable => 1,
-                    size => 11 },
-    mobius_c => { data_type => "integer",
-                  extra => { unsigned => 1 },
-                  is_nullable => 1,
-                  size => 11 },
-    mobius_d => { data_type => "integer",
-                  extra => { unsigned => 1 },
-                  is_nullable => 1,
-                  size => 11 },
-    lft => { data_type => "float",
-             extra => { unsigned => 1 },
-             default_value => 1,
-             is_nullable => 0 },
-    rgt =>{ data_type => "float",
-            extra => { unsigned => 1 },
-            is_nullable => 1 },
-    inner => { data_type => "boolean",
-               default_value => 0,
-               is_nullable => 0 },
-    );
+__PACKAGE__->set_primary_key("id");
 
 __PACKAGE__->add_mobius_tree_columns();
 
@@ -116,3 +130,64 @@ __END__
   is_nullable: 0
 
 =cut
+
+Stuff that needs to be considered for companion records/classes.
+
+  "user",
+  { data_type => "integer", extra => { unsigned => 1 }, is_nullable => 0 },
+  "parent",
+  { data_type => "integer", extra => { unsigned => 1 }, is_nullable => 1 },
+  "note",
+  { data_type => "text", is_nullable => 1 },
+  "secret",
+  { data_type => "mediumtext", is_nullable => 1 },
+  "display_group",
+  {
+    data_type => "enum",
+    default_value => "journal",
+    extra => { list => ["journal", "aux", "standalone"] },
+    is_nullable => 1,
+  },
+  "golive",
+  {
+    data_type => "datetime",
+    datetime_undef_if_invalid => 1,
+    is_nullable => 1,
+  },
+  "takedown",
+  {
+    data_type => "datetime",
+    datetime_undef_if_invalid => 1,
+    default_value => "2100-01-01 00:00:00",
+    is_nullable => 1,
+  },
+
+
+__PACKAGE__->add_columns(
+    mobius_a => { data_type => "integer", 
+                  extra => { unsigned => 1 },
+                  is_nullable => 1,
+                  size => 11 },
+    mobius_b => { data_type => "integer",
+                    extra => { unsigned => 1 },
+                    is_nullable => 1,
+                    size => 11 },
+    mobius_c => { data_type => "integer",
+                  extra => { unsigned => 1 },
+                  is_nullable => 1,
+                  size => 11 },
+    mobius_d => { data_type => "integer",
+                  extra => { unsigned => 1 },
+                  is_nullable => 1,
+                  size => 11 },
+    lft => { data_type => "float",
+             extra => { unsigned => 1 },
+             default_value => 1,
+             is_nullable => 0 },
+    rgt =>{ data_type => "float",
+            extra => { unsigned => 1 },
+            is_nullable => 1 },
+    inner => { data_type => "boolean",
+               default_value => 0,
+               is_nullable => 0 },
+    );
