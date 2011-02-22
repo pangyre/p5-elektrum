@@ -1,5 +1,6 @@
 package Elektrum::Controller::Node;
 use Moose;
+use CatalystX::Routes;
 use namespace::autoclean;
 BEGIN { extends "Catalyst::Controller" }
 
@@ -7,30 +8,59 @@ has "rs" =>
     is => "rw",
     ;
 
-sub base : Chained PathPart("n") CaptureArgs(0) { 
-    my ( $self, $c ) = @_;
-}
+chain_point "_base"
+    => chained "/"
+    => path_part "n"
+    => capture_args 0
+    => sub {
+        my ( $self, $c, $id ) = @_;
+        $self->rs( $c->model("DBIC::Node")->search_rs );
+};
 
-sub list : Chained("base") PathPart("") Args(0) {
-    my ( $self, $c ) = @_;
-    $c->response->body("OK");
-}
+chain_point "_set_node"
+    => chained "_base"
+    => path_part ""
+    => capture_args 1
+    => sub {
+        my ( $self, $c, $id ) = @_;
+};
 
-sub with_id : Chained("base") PathPart("") CaptureArgs(1) {
-    my ( $self, $c ) = @_;
-}
+get ""
+    => chained("_base")
+    => args 0
+    => sub {
+        my ( $self, $c, $id ) = @_;
+        $c->response->body("OK");
+};
 
-sub single : Chained("item") PathPart("") Args(0) {
-    my ( $self, $c ) = @_;
-}
+get "atom"
+    => chained("_base")
+    => args 0
+    => sub {
+        my ( $self, $c, $id ) = @_;
+        $c->response->body("OK");
+};
 
-sub atom : Chained("list") Args(0) {
-    my ( $self, $c ) = @_;
-}
+get ""
+    => chained("_set_node")
+    => args 0
+    => sub {
+        my ( $self, $c, $id ) = @_;
+};
 
-sub atom_single : Chained("with_id") PathPart("atom") Args(0) {
-    my ( $self, $c ) = @_;
-}
+get "edit"
+    => chained("_set_node")
+    => args 0
+    => sub {
+        my ( $self, $c, $id ) = @_;
+};
+
+get "atom"
+    => chained("_set_node")
+    => args 0
+    => sub {
+        my ( $self, $c, $id ) = @_;
+};
 
 __PACKAGE__->meta->make_immutable;
 

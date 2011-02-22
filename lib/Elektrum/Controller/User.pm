@@ -17,7 +17,7 @@ sub with_id : Chained("base") PathPart("") CaptureArgs(1) {
     my ( $self, $c ) = @_;
 }
 
-sub single : Chained("item") PathPart("") Args(0) {
+sub single : Chained("with_id") PathPart("") Args(0) {
     my ( $self, $c ) = @_;
 }
 
