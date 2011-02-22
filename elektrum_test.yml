@@ -1,0 +1,20 @@
+---
+name: "ElektrumPress Test"
+
+# CONTROLLERS -----------------------------------------------
+
+# MODELS ----------------------------------------------------
+Model::DBIC: 
+  connect_info: 
+    - "dbi:SQLite::memory:"
+    - ~
+    - ~
+    - 
+      AutoCommit: 1
+      ChopBlanks: 1
+      RaiseError: 1
+      sqlite_unicode: 1
+
+
+# VIEWS -----------------------------------------------------
+
