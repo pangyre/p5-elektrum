@@ -15,6 +15,5 @@ Model::DBIC:
       RaiseError: 1
       sqlite_unicode: 1
 
-
 # VIEWS -----------------------------------------------------
 
