@@ -18,4 +18,16 @@ Model::DBIC:
       sqlite_unicode: 1
 
 # VIEWS -----------------------------------------------------
-
+View::Alloy:
+  INCLUDE_PATH:
+    - __path_to(root/alloy/src)__
+    - __path_to(root/alloy)__
+#  PRE_PROCESS:
+#    - lib/macros.tt
+  ENCODING: utf8
+  TEMPLATE_EXTENSION: .tt
+  CATALYST_VAR: c
+  WRAPPER: lib/wrapper.tt
+  TRIM: 1
+  COLLAPSE: 1
+  RECURSION: 1

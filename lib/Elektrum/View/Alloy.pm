@@ -9,14 +9,6 @@ use Encode;
 
 __PACKAGE__->config
     (
-     # render_die => 1,
-
-     TRIM => 1,
-     ENCODING => "utf8",
-     TEMPLATE_EXTENSION => '.tt',
-     # WRAPPER => "lib/html5.tt",
-     # PRE_PROCESS => 'lib/macros.tt',
-     RECURSION => 1,
      FILTERS => {
          format_number => sub {
              require Number::Format;

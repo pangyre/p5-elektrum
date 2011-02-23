@@ -59,7 +59,6 @@ sub process : Private {
                    %info );
     }
     $c->log->error($error);
-
     1;
 }
 
