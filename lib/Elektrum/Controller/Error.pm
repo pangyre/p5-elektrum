@@ -7,8 +7,8 @@ BEGIN { extends "Catalyst::Controller" }
 
 sub process : Private {
     my ( $self, $c, $status, $error ) = @_;
-    die "Died in Error";
     $status ||= 500;
+
     if ( $status < 300 ) # That's not an error and that's an error... What?
     {
         $c->log->debug("Error received a non-error status of $status, that's a 500 round these parts");
