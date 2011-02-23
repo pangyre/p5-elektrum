@@ -17,7 +17,20 @@ sub default :Path {
 }
 
 
-sub end : ActionClass("RenderView") {}
+sub render : ActionClass("RenderView") {}
+
+sub end : Private {
+    my ( $self, $c ) = @_;
+    $c->forward("render") unless @{$c->error};
+    if ( grep /no such table/, @{$c->error} )
+    {
+        $c->log->error("Apparently there is no database, attempting auto deployment");
+        $c->model("DBIC")->schema->deploy();
+        $c->clear_errors;
+        $c->forward("render");
+    }
+
+}
 
 __PACKAGE__->meta->make_immutable;
 

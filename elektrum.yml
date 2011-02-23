@@ -1,6 +1,6 @@
 ---
 name: "ElektrumPress"
-default_view: "TT"
+default_view: "Alloy"
 default_model: "DBIC"
 
 # CONTROLLERS -----------------------------------------------
