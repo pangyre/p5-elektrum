@@ -5,7 +5,7 @@ BEGIN { extends "Catalyst::Controller" }
 
 __PACKAGE__->config(namespace => "n");
 
-sub search : Path("") Args(0) {
+sub search : Local Args(0) {
     my ( $self, $c ) = @_;
     ...;
 }

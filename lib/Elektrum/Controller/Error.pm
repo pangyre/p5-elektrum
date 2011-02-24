@@ -36,14 +36,15 @@ sub process : Private {
     $c->log->error($error);
     $c->clear_errors;
 
-    if ( $accept =~ m,application/json, )
+    if ( $accept and $accept =~ m,application/json, )
     {
         $c->response->content_type("application/json");
         $c->response->status(200);
         $c->stash( json => \%info );
         $c->forward($c->view("JSON"));
     }
-    elsif ( $accept =~ m,(?:application|text)/xml,
+    elsif ( $accept and
+            $accept =~ m,(?:application|text)/xml,
             and $accept !~ m,text/html, )
     {
         my ( $source, $line ) = $error =~ /\ACaught exception in (\S+).+?line (\d+)[[:punct:]]+/s;

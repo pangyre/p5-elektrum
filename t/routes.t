@@ -1,8 +1,39 @@
 use ElekTest;
+use strict;
 
-while (<DATA>)
+while ( my $route = <DATA>)
 {
-    diag($_);
+    chomp $route;
+    my $response = request($route);
+
+    if ( $response->decoded_content =~ /file error .+?\.tt: not found/ )
+    {
+      TODO: {
+          local $TODO = "Template not implemented";
+          ok($response->is_success, "GET $route");
+        };
+    }
+    elsif ( $response->decoded_content =~ /file error .+?\.tt: not found/ )
+    {   
+      TODO: {
+          local $TODO ="Template not implemented";
+          ok($response->is_success, "GET $route");
+
+        };
+    }
+    elsif ( $response->code == 404 )
+    {
+        fail("$route not found");
+    }
+    elsif ( $response->is_success )
+    {
+        pass("GET $route");
+    }
+    else
+    {
+        fail("GET $route");
+        BAIL_OUT("No point in testing futher");
+    }
 }
 
 done_testing();
@@ -39,6 +70,5 @@ __END__
 /admin/dump
 /admin/inc
 /admin/{¿ping?}
-./atom
 /admin/niceuri
 /admin/niceuri/{string}
