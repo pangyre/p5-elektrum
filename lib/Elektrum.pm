@@ -17,12 +17,24 @@ has "theme" =>
     is => "rw",
     isa => "Str", # for now
     required => 1,
-    default => sub { "CandyCoded" },
+    default => sub { "Default" }
     ;
 
 __PACKAGE__->config(
     name => "Elektrum",
     disable_component_resolution_regex_fallback => 1,
+    # "Plugin::Static::Simple"... 4 years later...
+    static => {
+        include_path => [ __PACKAGE__->path_to('root', 'static') ],
+        ignore_extensions => [],
+        debug => 0,
+        mime_types => {
+            svg => "image/svg+xml",
+            html => "text/html",
+            jsn => "application/json",
+        },
+    },
+
 );
 
 __PACKAGE__->setup();

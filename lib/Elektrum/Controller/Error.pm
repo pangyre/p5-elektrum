@@ -8,7 +8,7 @@ BEGIN { extends "Catalyst::Controller" }
 sub process : Private {
     my ( $self, $c, $status, $error ) = @_;
     $status ||= 500;
-
+    # confess $status;
     if ( $status < 300 ) # That's not an error and that's an error... What?
     {
         $c->log->debug("Error received a non-error status of $status, that's a 500 round these parts");
@@ -22,7 +22,9 @@ sub process : Private {
 
     $error ||= @{$c->error} ? 
         join("\n\n", @{$c->error}) : $@ ?
-        $@ : join(" ", "Unknown error caught by " . __PACKAGE__);
+        $@ : $c->model("Messages")->status2en($message);
+
+ # join(" ", "Unknown error caught by " . __PACKAGE__);
 
     my %info = ( status => $status,
                  message => $message,
@@ -31,6 +33,7 @@ sub process : Private {
 
     my $accept = $c->request->headers->header("accept");
 
+    $c->log->error($error);
     $c->clear_errors;
 
     if ( $accept =~ m,application/json, )
@@ -58,7 +61,6 @@ sub process : Private {
         $c->stash( template => "error/process.tt",
                    %info );
     }
-    $c->log->error($error);
     1;
 }
 
@@ -79,6 +81,11 @@ sub throw : Local Args(1) {
     {
         $c->detach("Error", [404]);
     }
+}
+
+sub _status2en {
+    my $self = shift;
+
 }
 
 __PACKAGE__->meta->make_immutable;

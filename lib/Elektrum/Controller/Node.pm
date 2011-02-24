@@ -54,6 +54,19 @@ sub single_atom : Chained("id") PathPart("atom") Args(0) {
     my ( $self, $c ) = @_;
 }
 
+sub tag : Chained("base") CaptureArgs(1) {
+    my ( $self, $c, $tags ) = @_;
+    my @tags = split ";", $tags; # I think, yes.
+}
+
+sub tag_view : PathPart("") Chained("tag") Args(0) {
+    my ( $self, $c ) = @_;
+}
+
+sub random : Chained("tag") Args(0) {
+    my ( $self, $c, $tags ) = @_;
+}
+
 __PACKAGE__->meta->make_immutable;
 
 1;
