@@ -69,7 +69,7 @@ sub throw : Local Args(1) {
         eval {
             my $message = HTTP::Status::status_message($status)
                 or $c->log->warn("Invalid status code '$status'");
-            Catalyst::Exception->throw("$status: $message - manually thrown error for testing");
+            Catalyst::Exception->throw("$status: $message - manually thrown error for testing.");
             die "Catalyst::Exception->throw failed to cause exception!?";
         };
         $c->error($@);

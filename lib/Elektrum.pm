@@ -1,20 +1,27 @@
 package Elektrum;
 use Moose;
 use namespace::autoclean;
+our $VERSION = "0.01";
 
 use Catalyst::Runtime 5.80;
 
 use Catalyst qw(
+    Unicode
     ConfigLoader
     Static::Simple
 );
 
-extends 'Catalyst';
+extends "Catalyst";
 
-our $VERSION = '0.01';
+has "theme" =>
+    is => "rw",
+    isa => "Str", # for now
+    required => 1,
+    default => sub { "CandyCoded" },
+    ;
 
 __PACKAGE__->config(
-    name => 'Elektrum',
+    name => "Elektrum",
     disable_component_resolution_regex_fallback => 1,
 );
 

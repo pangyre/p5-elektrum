@@ -1,6 +1,61 @@
-OH HAI
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>[% FILTER html %][% node.parent ? node.parent.titleDoc.textContent : 321 %] » [% node.titleDoc.textContent %][% END %]</title>
+  <style type="text/css" media="screen">
+    [% PROCESS lib/style.css %]
+  </style>
+  <link rel="shortcut icon" href="[% c.uri_for("/img/favicon.png") %]" />
+  <link rel="apple-touch-icon" href="[% c.theme_uri_for("/img/icon/v-square-favicon.png") %]">
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9/jquery-ui.min.js"></script>
+<script type="text/javascript">//<![CDATA[
+jQuery(function($){
+
+});
+//]]></script>
+</head>
+<body>
+<div id="page">
+<div class="header">
+  <h1>[% node.title %]</h1>
+  <div class="nav">
+    <ul>
+        [%-IF c.check_user_role("admin") %]
+        <li><a title="New Node" href="[% c.uri_for("/admin") %]" class="button white">Admin</a></li>
+        <li><a title="New Node" href="[% c.uri_for("/admin/node/new") %]" class="button white">New</a></li>
+        [%-END %]
+        <li><a title="Feed for [% node.titleDoc.textContent | html %]" href="[% c.uri_for_action("node/atom", [node.id]) %]" class="button green">Atom</a></li>
+[%-IF node.title.match("Catlinx") OR ( depth > 1 AND node.parents.1.title.match("Catlinx") ) %]
+        <li><a href="http://catlinx.org" class="button blue">Catlinx·org</a></li>
+[%-ELSE %]
+        <li><a href="https://github.com/pangyre/p5-elektrum" class="button gray">github·elektrum</a></li>
+[%-END %]
+       <li><a href="/" class="button red" title="">Site Name</a></li>
+   </ul>
+[%# PROCESS widget/search.tt %]
+  </div>
+</div>
+
+<div id="content">
 
 [% content %]
 
-KTHXBAI
+</div>
 
+  <div class="footer">
+       [% USE date %]
+    <p>[%# the license block stuff, inlined... %]
+      ©[% date.format(date.now, "%Y") %] [% site.name %] except where noted, all rights reserved.
+    </p>
+    <p class="center">
+      <a href="http://www.catalystframework.org/"><img
+       src="/img/catalyst/btn_88x31_built.png" alt="Built with
+       Catalyst" class="nude"/></a>
+    </p>
+  </div>
+ </div>
+[%# -PROCESS fragment/universal_body_insert.tt %]
+ </body>
+</html>
