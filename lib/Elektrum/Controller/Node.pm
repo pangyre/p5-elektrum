@@ -33,7 +33,7 @@ sub id : Chained("base") PathPart("") CaptureArgs(1) {
         or $c->detach("Error", [404]);
 }
 
-sub single_view : Chained("id") PathPart("") Args(0) {
+sub single : Chained("id") PathPart("") Args(0) {
     my ( $self, $c ) = @_;
     $c->stash( template => "node/view_single.tt" );
 }

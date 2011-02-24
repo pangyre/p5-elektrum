@@ -13,12 +13,22 @@ sub list : Chained("base") PathPart("") Args(0) {
     $c->response->body("OK");
 }
 
-sub with_id : Chained("base") PathPart("") CaptureArgs(1) {
+sub id : Chained("base") PathPart("") CaptureArgs(1) {
     my ( $self, $c ) = @_;
 }
 
-sub single : Chained("with_id") PathPart("") Args(0) {
+sub single : Chained("id") PathPart("") Args(0) {
     my ( $self, $c ) = @_;
+}
+
+sub register : Local Args(0) {
+    my ( $self, $c ) = @_;
+
+}
+
+sub confirm : Local Args(1) {
+    my ( $self, $c, $token ) = @_;
+
 }
 
 __PACKAGE__->meta->make_immutable;
