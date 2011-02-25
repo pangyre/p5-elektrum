@@ -1,5 +1,6 @@
 use ElekTest;
 use strict;
+use utf8;
 
 while ( my $route = <DATA>)
 {

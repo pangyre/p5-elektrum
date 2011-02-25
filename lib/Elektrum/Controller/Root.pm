@@ -7,7 +7,6 @@ __PACKAGE__->config(namespace => "");
 
 sub index :Path :Args(0) {
     my ( $self, $c ) = @_;
-    $c->response->body("O HAI");
 }
 
 sub default :Path {
@@ -39,7 +38,7 @@ sub end : Private {
     # a static page or do something terribly simple...
     if ( @{$c->error} )
     {
-        $c->detach("Error::Static");
+        $c->forward("Error::Static");
     }
 }
 

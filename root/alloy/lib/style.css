@@ -3,25 +3,28 @@
 [%-color_light_blue = "#228" %]
 * {
  border-collapse:collapse;
- overflow:visible;
 }
 /* display:block; width:100%; overflow-x:auto; */
 
 body, html {
  text-align:center;
+ height:100%; /* needed for container min-height */
  margin:0 auto;
  padding:0;
  width:100%;
  font-family:"Trebuchet MS","Helvetica Neue", helvetica, sans-serif;
  color:#001;
 
- background:-webkit-gradient(linear, left top, left bottom, from(#222222), to(#ffffff));
- background:-moz-linear-gradient(top, #222222, #ffffff);
- filter:progid:DXImageTransform.Microsoft.gradient(startColorstr="#222222", endColorstr="#ffffff");
+}
+body {
+  height:100%;
+  background:-webkit-gradient(linear, left top, left bottom, from(#222222), to(#ffffff));
+  background:-moz-linear-gradient(top, #222222, #ffffff);
+  filter:progid:DXImageTransform.Microsoft.gradient(startColorstr="#222222", endColorstr="#ffffff");
 
- background:-webkit-gradient(linear, left top, left bottom, from(#fafafa), to(#ffffff));
- background:-moz-linear-gradient(top, #fafafa, #ffffff);
- filter:progid:DXImageTransform.Microsoft.gradient(startColorstr="#fafafa", endColorstr="#ffffff");
+  background:-webkit-gradient(linear, left top, left bottom, from(#fafafa), to(#ffffff));
+  background:-moz-linear-gradient(top, #fafafa, #ffffff);
+  filter:progid:DXImageTransform.Microsoft.gradient(startColorstr="#fafafa", endColorstr="#ffffff");
 }
 
 
@@ -47,15 +50,20 @@ h1 + h2, h2 + h3, h3 + h4, h4 + h5 {
 .article h6 { font-size:1.1em; }
 
 #content {
+ position:relative; /* needed for footer positioning*/
  text-align:left;
  width:860px;
  margin:0 auto;
  font-size:13.25px;
  line-height:16px;
+ height:auto !important; /* real browsers */
+ height:100%; /* IE6: treaded as min-height*/
+ min-height:100%; /* real browsers */
 }
 
 #page > .header {
-position:relative;
+ z-index:101;  /* IE7 */
+ position:relative;
  height:49px;
  width:100%;
 }
@@ -399,14 +407,14 @@ form.search input {
 }
 
 .nav {
+ position:absolute;
  text-align:right;
  list-style-type:none;
- position:absolute;
  z-index:100;
  top:0;
  right:22px;
  margin-top:6px;
- width:100%;
+ //zoom: 1;
 }
 .nav ul {
  margin:0;
@@ -418,7 +426,7 @@ form.search input {
 }
 
 .nav li a {
-font-size:10px;
+ font-size:10.5px;
 }
 
 .article {

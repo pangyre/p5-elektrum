@@ -2,7 +2,7 @@
 <html lang="en">
  <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <title>[% FILTER html %][% node.parent ? node.parent.titleDoc.textContent : 321 %] » [% node.titleDoc.textContent %][% END %]</title>
+  <title>[% PROCESS lib/title.tt %]</title>
   <style type="text/css" media="screen">
     [% PROCESS lib/style.css %]
   </style>
@@ -18,7 +18,7 @@ jQuery(function($){
 <body>
 <div id="page">
 <div class="header">
-  <h1>[% node.title %]</h1>
+  <h1>[% node.title || c.site.name %]</h1>
   <div class="nav">
     <ul>
         [%-IF c.check_user_role("admin") %]

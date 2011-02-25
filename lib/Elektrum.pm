@@ -20,6 +20,14 @@ has "theme" =>
     default => sub { "Default" }
     ;
 
+has "site" =>
+    is => "rw",
+    isa => "HashRef", # for now
+    required => 1,
+    lazy => 1,
+    default => sub { +shift->config->{site} }
+    ;
+
 __PACKAGE__->config(
     name => "Elektrum",
     disable_component_resolution_regex_fallback => 1,
