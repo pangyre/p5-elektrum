@@ -8,7 +8,7 @@
   </style>
   <link rel="shortcut icon" href="[% c.uri_for("/img/favicon.png") %]" />
   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
-  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9/jquery-ui.min.js"></script>
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
 <script type="text/javascript">//<![CDATA[
 jQuery(function($){
 
@@ -18,7 +18,12 @@ jQuery(function($){
 <body>
 <div id="page">
 <div class="header">
+[%-root_uri = c.uri_for("/") %]
+[%-IF c.request.uri == root_uri %]
   <h1>[% node.title || c.site.name %]</h1>
+[%-ELSE %]
+  <h1><a href="[% root_uri %]" title="[% c.site.name | html %]">[% node.title || c.site.name %]</a></h1>
+[%-END %]
   <div class="nav">
     <ul>
         [%-IF c.check_user_role("admin") %]
@@ -27,11 +32,9 @@ jQuery(function($){
         [%-END %]
         <li><a title="Feed for [% node.titleDoc.textContent | html %]" href="[% c.uri_for_action("node/atom", [node.id]) %]" class="button green">Atom</a></li>
 [%-IF node.title.match("Catlinx") OR ( depth > 1 AND node.parents.1.title.match("Catlinx") ) %]
-        <li><a href="http://catlinx.org" class="button blue">Catlinx·org</a></li>
 [%-ELSE %]
         <li><a href="https://github.com/pangyre/p5-elektrum" class="button gray">github·elektrum</a></li>
 [%-END %]
-       <li><a href="/" class="button red" title="">Site Name</a></li>
    </ul>
 [%# PROCESS widget/search.tt %]
   </div>

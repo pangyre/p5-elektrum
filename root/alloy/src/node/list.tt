@@ -1,0 +1,5 @@
+[% FOR node IN nodes %]
+<div class="article">
+[% node %]
+</div>
+[% END %]

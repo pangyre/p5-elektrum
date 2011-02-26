@@ -1,0 +1,8 @@
+[% IF nodes %]
+  [% PROCESS node/list.tt %]
+[% ELSE %]
+<p>
+  No nodes.
+</p>
+[% END %]
+
