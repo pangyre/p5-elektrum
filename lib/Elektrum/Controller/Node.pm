@@ -38,6 +38,10 @@ sub single : Chained("id") PathPart("") Args(0) {
     $c->stash( template => "node/view_single.tt" );
 }
 
+sub new_node : Chained("base") PathPart("new") Args(0) {
+    my ( $self, $c ) = @_;
+}
+
 sub edit : Chained("id") Args(0) {
     my ( $self, $c ) = @_;
 }

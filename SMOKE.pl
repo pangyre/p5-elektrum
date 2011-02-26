@@ -23,6 +23,9 @@ push @smoke_args, "-v" if $ENV{TEST_VERBOSE};
 
 {
     diag("Running application tests --------------------------");
+
+    # Not yet local $ENV{TEST_POD} = 1;
+
     my $app = App::Prove->new;
     $app->process_args( @smoke_args );
     #$app->process_args(qw( -l t/db-deploy-test.t ));
