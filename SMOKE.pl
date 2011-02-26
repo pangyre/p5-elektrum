@@ -1,44 +1,40 @@
 #!/usr/bin/env perl
 use warnings;
 use strict;
-use Test::More;
 use File::Temp qw( tempdir );
 use Capture::Tiny qw( capture_merged tee );
 use App::Prove;
 
 my $dir = tempdir( CLEANUP => 1 );
-ok( -d $dir, "Temp build dir" );
-ok( chdir $dir, "chdir $dir" );
+-d $dir or die "Temp build dir created";
+chdir $dir or die "Couldn't chdir $dir";
 
-{
-#    note( my $clone = capture_merged { system qw( git clone git@github.com:pangyre/p5-elektrum.git ) } );
-#    like( $clone, qr/Initialized empty Git repository/ );
+#    my $clone = capture_merged { system qw( git clone git@github.com:pangyre/p5-elektrum.git ) };
+#    $clone =~ qr/Initialized empty Git repository/
+#        or die "Git repo failed: $clone";
 #    my $app_dir = "p5-elektrum";
-    my $app_dir = "/Users/apv/depot/p5-elektrum";
-    ok( chdir $app_dir, "chdir $app_dir" );
-}
+my $app_dir = "/Users/apv/depot/p5-elektrum";
+chdir $app_dir or die "Couldn't chdir $app_dir";
+
 
 my @smoke_args = qw( -l t/ -r );
 push @smoke_args, "-v" if $ENV{TEST_VERBOSE};
 
-{
-    diag("Running application tests --------------------------");
+print "Running application tests --------------------------\n"
+    if -t STDOUT;
 
-    # Not yet local $ENV{TEST_POD} = 1;
+# Not yet local $ENV{TEST_POD} = 1;
 
-    my $app = App::Prove->new;
-    $app->process_args( @smoke_args );
-    #$app->process_args(qw( -l t/db-deploy-test.t ));
-    my $result = $app->run;
-    diag("Done with application tests ------------------------");
+my $app = App::Prove->new;
+$app->process_args( @smoke_args );
+my $result = $app->run;
 
-    $result ?
-        pass("Application tests PASS") : fail("Application tests FAIL");
-}
+# system "prove", @smoke_args;
 
-ok( chdir, "chdir for safe cleanup of tempdir" );
+print "Done with application tests ------------------------\n"
+    if -t STDOUT;
 
-done_testing();
+chdir or warn "Couldn't chdir for safe cleanup of tempdir\n";
 
 exit 0;
 
