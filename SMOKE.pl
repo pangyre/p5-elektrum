@@ -1,5 +1,5 @@
 #!/usr/bin/env perl
-use 5.12;
+use 5.12.0;
 use warnings;
 use File::Temp qw( tempdir );
 use Capture::Tiny qw( capture_merged );
