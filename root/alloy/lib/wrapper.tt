@@ -31,7 +31,6 @@ jQuery(function($){
         <li><a title="New Node" href="[% c.uri_for("/admin") %]" class="button white">Admin</a></li>
         <li><a title="New Node" href="[% c.uri_for("/admin/node/new") %]" class="button white">New</a></li>
         [%-END %]
-        <li><a title="Feed for [% node.titleDoc.textContent | html %]" href="[% c.uri_for_action("node/atom", [node.id]) %]" class="button green">Atom</a></li>
 [%-IF node.title.match("Catlinx") OR ( depth > 1 AND node.parents.1.title.match("Catlinx") ) %]
 [%-ELSE %]
         <li><a href="https://github.com/pangyre/p5-elektrum" class="button gray">github·elektrum</a></li>
