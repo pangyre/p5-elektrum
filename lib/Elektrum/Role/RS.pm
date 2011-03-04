@@ -5,7 +5,7 @@ requires qw( base );
 after "base" => sub {
     my ( $self, $c ) = @_;
     my $class = blessed($self);
-    ( my $model = $class ) =~ s/\A.+://; # E.g., Elektrum::Controller::Node
+    ( my $model = $class ) =~ s/\A.+::/DBIC::/; # E.g., Elektrum::Controller::Node
     ( my $isa = $class ) =~ s/Controller/Schema::ResultSet/;
     has "rs" =>
         is => "ro",

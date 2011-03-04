@@ -715,3 +715,7 @@ dt + dd:before {
  opacity:.5;
  color:[% color_light_blue %];
 }
+
+input.openid {
+ width:17em;
+}

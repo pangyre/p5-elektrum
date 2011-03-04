@@ -10,6 +10,10 @@ use Catalyst qw(
     Unicode
     ConfigLoader
     Static::Simple
+    Authentication
+    Session
+    Session::Store::FastMmap
+    Session::State::Cookie
 );
 
 extends "Catalyst";
@@ -43,7 +47,33 @@ __PACKAGE__->config(
             jsn => "application/json",
         },
     },
-
+    "Plugin::Authentication" => {
+        default_realm => "openid",
+        realms => {
+            openid => {
+                credential => {
+                    class => "OpenID",
+                    store => {
+                        class => "OpenID",
+                    },
+                    # consumer_secret => "Don't bother setting",
+                    ua_class => "LWPx::ParanoidAgent",
+                    # whitelist is only relevant for LWPx::ParanoidAgent
+                    ua_args => {
+                        whitelisted_hosts => [qw/ 127.0.0.1 localhost /],
+                    },
+                    extensions => [
+                        'http://openid.net/extensions/sreg/1.1',
+                        {
+                            required => 'email',
+                            optional => 'fullname,nickname,timezone',
+                        },
+                        ],
+                    flatten_extensions_into_user => 1,
+                },
+            },
+        },
+    },
 );
 
 __PACKAGE__->setup();

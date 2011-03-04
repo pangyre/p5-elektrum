@@ -9,7 +9,7 @@ sub index :Path :Args(0) {
     my ( $self, $c ) = @_;
 }
 
-sub default :Path {
+sub not_found :Path {
     my ( $self, $c ) = @_;
     $c->go("Error", [404]);
 }

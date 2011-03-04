@@ -1,0 +1,21 @@
+<div id="authentication">
+
+[%-IF c.user_exists-%]
+
+<a class="button" href="[% c.user.url | html %]">[% ( c.user.nickname || c.user.display ) | html %]</a>
+ &middot;
+<a class="button orange" href="[% c.uri_for("/user/logout") %]">logout</a>
+
+[%-ELSE-%]
+
+<form action="[% c.uri_for('/user/login') %]" method="GET" name="openid">
+ <fieldset>
+  <legend>Login</legend>
+   <input placeholder="Your OpenID URL" type="url" name="openid_identifier" class="openid" />
+   <input type="submit" value="Sign-in with OpenID" />
+ </fieldset>
+</form>
+
+[%-END-%]
+
+</div>

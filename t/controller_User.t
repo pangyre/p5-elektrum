@@ -7,7 +7,6 @@ use Elektrum::Controller::User;
 
 my @plain_get = qw(
                    /user
-                   /user/register
                    /user/login
                    /user/logout
                  );
@@ -18,11 +17,11 @@ for my $get ( @plain_get )
     last if $get eq "register";
 }
 
-# Register incorrectly.
+# Login incorrectly.
 {
-    my $response = request POST "/user/register",
+    my $response = request POST "/user/login",
         [ bar => 'baz', something => 'else' ];
-    ok( $response->is_success, "Bad POST to /user/register" )
+    ok( $response->is_success, "Bad POST to /user/login" )
         or note( $response->status_line );
 
 }

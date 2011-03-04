@@ -27,8 +27,15 @@ jQuery(function($){
 [%-END %]
   <div class="nav">
     <ul>
+[%-IF c.user_exists-%]
+      <li><a class="button" href="[% c.user.url | html %]">[% ( c.user.nickname || c.user.display ) | html %]</a></li>
+      <li><a class="button" href="[% c.uri_for("/user/logout") %]">logout</a></li>
+[%-ELSE-%]
+      <li><a class="button" href="[% c.uri_for("/user/login") %]">login</a></li>
+[%-END-%]
+
         [%-IF c.check_user_role("admin") %]
-        <li><a title="New Node" href="[% c.uri_for("/admin") %]" class="button white">Admin</a></li>
+        <li><a title="Admin" href="[% c.uri_for("/admin") %]" class="button white">Admin</a></li>
         <li><a title="New Node" href="[% c.uri_for("/admin/node/new") %]" class="button white">New</a></li>
         [%-END %]
 [%-IF node.title.match("Catlinx") OR ( depth > 1 AND node.parents.1.title.match("Catlinx") ) %]
