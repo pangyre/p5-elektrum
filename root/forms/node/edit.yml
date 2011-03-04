@@ -1,0 +1,6 @@
+---
+auto_fieldset:
+  legend: "Edit..."
+
+load_config_file:
+  - node/common.yml

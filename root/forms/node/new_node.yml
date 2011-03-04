@@ -1,0 +1,6 @@
+---
+auto_fieldset:
+  legend: "Create a new node"
+
+load_config_file:
+  - node/common.yml

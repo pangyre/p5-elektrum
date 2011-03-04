@@ -29,19 +29,21 @@ jQuery(function($){
     <ul>
 [%-IF c.user_exists-%]
       <li><a class="button" href="[% c.user.url | html %]">[% ( c.user.nickname || c.user.display ) | html %]</a></li>
-      <li><a class="button" href="[% c.uri_for("/user/logout") %]">logout</a></li>
-[%-ELSE-%]
-      <li><a class="button" href="[% c.uri_for("/user/login") %]">login</a></li>
+      <li><a class="button green" href="[% c.uri_for("/n/new") %]">new post</a></li>
 [%-END-%]
 
         [%-IF c.check_user_role("admin") %]
         <li><a title="Admin" href="[% c.uri_for("/admin") %]" class="button white">Admin</a></li>
         <li><a title="New Node" href="[% c.uri_for("/admin/node/new") %]" class="button white">New</a></li>
         [%-END %]
-[%-IF node.title.match("Catlinx") OR ( depth > 1 AND node.parents.1.title.match("Catlinx") ) %]
-[%-ELSE %]
-        <li><a href="https://github.com/pangyre/p5-elektrum" class="button gray">github·elektrum</a></li>
-[%-END %]
+        <li><a href="https://github.com/pangyre/p5-elektrum"
+               class="button white">github·elektrum</a></li>
+[%-IF c.user_exists-%]
+      <li><a class="button white" href="[% c.uri_for("/user/logout") %]">logout</a></li>
+[%-ELSE-%]
+      <li><a class="button white" href="[% c.uri_for("/user/login") %]">login</a></li>
+[%-END-%]
+
    </ul>
 [%# PROCESS widget/search.tt %]
   </div>
@@ -56,7 +58,10 @@ jQuery(function($){
   <div class="footer">
        [% USE date %]
     <p>[%# the license block stuff, inlined... %]
-      ©[% date.format(date.now, "%Y") %] [% site.name %] except where noted, all rights reserved.
+      ©[% date.format(date.now, "%Y") %] [% site.name %] except where
+      noted, all rights reserved
+      &middot;
+      <a href="https://github.com/pangyre/p5-elektrum">github·elektrum</a>
     </p>
     <p class="center">
       <a href="http://www.catalystframework.org/"><img

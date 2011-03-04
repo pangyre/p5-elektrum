@@ -1,7 +1,7 @@
 package Elektrum::Controller::Node;
 use Moose;
 use namespace::autoclean;
-BEGIN { extends "Catalyst::Controller" }
+BEGIN { extends "Catalyst::Controller::HTML::FormFu" }
 with "Elektrum::Role::RS";
 
 sub base : Chained("/") PathPart("n") CaptureArgs(0) {
@@ -33,8 +33,11 @@ sub single : Chained("id") PathPart("") Args(0) {
     $c->stash( template => "node/view_single.tt" );
 }
 
-sub new_node : Chained("base") PathPart("new") Args(0) {
+#sub new_node : Chained("base") PathPart("new") Args(0) FormConfig("node/edit") {
+sub new_node : Chained("base") PathPart("new") Args(0) FormConfig {
     my ( $self, $c ) = @_;
+#    my $node = $c->
+
 }
 
 sub edit : Chained("id") Args(0) {

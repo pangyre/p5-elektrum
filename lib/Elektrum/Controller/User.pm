@@ -29,7 +29,7 @@ sub login : Local Args(0) {
     if ( $c->authenticate() )
     {
         $c->flash(message => "You signed in with OpenID!");
-#        $c->response->redirect($c->uri_for("/"));
+        $c->response->redirect($c->uri_for("/"));
     }
 
 }
@@ -42,6 +42,7 @@ sub logout : Local Args(0) {
 
     # Set message.
     # Redirect to referer if wise.
+    $c->response->redirect( $c->uri_for("/") );
 }
 
 #sub confirm : Local Args(1) {

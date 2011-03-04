@@ -1,0 +1,31 @@
+---
+elements:
+  - type: Textarea
+    name: scrit
+    constraints:
+      - Required
+
+  - type: Text
+    name: parent
+    label: Parent
+
+  - type: "Text"
+    name: "content_type"
+    label: "Content Type"
+
+  - type: "Select"
+    name: "status"
+    label: "Status"
+    options:
+          - [ "draft", "Draft" ]
+          - [ "publish", "Publish" ]
+          - [ "deleted", "Deleted" ]
+
+#    model_config:
+#      delete_if_empty: 1
+#      resultset: Scritto
+
+  - type: Submit
+    name: x
+    value: Go
+
