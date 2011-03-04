@@ -62,8 +62,8 @@ sub tag_view : PathPart("") Chained("tag") Args(0) {
     my ( $self, $c ) = @_;
 }
 
-sub random : Chained("tag") Args(0) {
-    my ( $self, $c, $tags ) = @_;
+sub random : Chained("base") Args(0) {
+    my ( $self, $c ) = @_;
 }
 
 __PACKAGE__->meta->make_immutable;

@@ -18,13 +18,12 @@ for my $get ( @plain_get )
     last if $get eq "register";
 }
 
-done_testing();
-
 # Register incorrectly.
 {
     my $response = request POST "/user/register",
         [ bar => 'baz', something => 'else' ];
-    ok( $response->is_success, "Bad POST to /user/register" );
+    ok( $response->is_success, "Bad POST to /user/register" )
+        or note( $response->status_line );
 
 }
 
@@ -32,6 +31,9 @@ done_testing();
 {
     "";
 }
+
+done_testing();
+
 
 __END__
 
