@@ -2,15 +2,10 @@ package Elektrum::Controller::Node;
 use Moose;
 use namespace::autoclean;
 BEGIN { extends "Catalyst::Controller" }
-
-has "rs" =>
-    isa => "Elektrum::Schema::ResultSet::Node",
-    is => "rw",
-    ;
+with "Elektrum::Role::RS";
 
 sub base : Chained("/") PathPart("n") CaptureArgs(0) {
     my ( $self, $c ) = @_;
-    $self->rs( $c->model("DBIC::Node")->search_rs );
 }
 
 sub list : Chained("base") PathPart("") CaptureArgs(0) {
@@ -76,3 +71,5 @@ __PACKAGE__->meta->make_immutable;
 1;
 
 __END__
+
+Look at https://github.com/pangyre/p5-ftl/blob/master/lib/FTL/Controller/Scritto.pm

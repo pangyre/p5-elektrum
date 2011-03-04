@@ -1,4 +1,5 @@
 package Elektrum;
+use 5.12.2;
 use Moose;
 use namespace::autoclean;
 our $VERSION = "0.01";

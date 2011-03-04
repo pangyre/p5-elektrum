@@ -1,8 +1,8 @@
 package Elektrum::Controller::User;
 use Moose;
 use namespace::autoclean;
-
-BEGIN { extends "Catalyst::Controller" }
+BEGIN { extends "Catalyst::Controller::HTML::FormFu" }
+with "Elektrum::Role::RS";
 
 sub base : Chained PathPart("user") CaptureArgs(0) { 
     my ( $self, $c ) = @_;
