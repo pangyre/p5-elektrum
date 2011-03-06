@@ -7,7 +7,7 @@
   <style type="text/css" media="screen">
     [% PROCESS lib/style.css %]
   </style>
-  <link rel="shortcut icon" href="[% c.uri_for("/img/favicon.png") %]" />
+  <link rel="shortcut icon" href="[% c.uri_for("/img/elektrum-favicon.png") %]" />
   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
 <script type="text/javascript">//<![CDATA[
@@ -62,6 +62,8 @@ jQuery(function($){
       noted, all rights reserved
       &middot;
       <a href="https://github.com/pangyre/p5-elektrum">github·elektrum</a>
+      &middot;
+      <a href="http://sedition.com/a/3109">Sed 3.0 Spec</a>
     </p>
     <p class="center">
       <a href="http://www.catalystframework.org/"><img

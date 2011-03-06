@@ -33,11 +33,10 @@ sub single : Chained("id") PathPart("") Args(0) {
     $c->stash( template => "node/view_single.tt" );
 }
 
-#sub new_node : Chained("base") PathPart("new") Args(0) FormConfig("node/edit") {
 sub new_node : Chained("base") PathPart("new") Args(0) FormConfig {
     my ( $self, $c ) = @_;
-#    my $node = $c->
-
+    my $node = $self->rs->new({});
+    $c->stash( node => $node );
 }
 
 sub edit : Chained("id") Args(0) {
