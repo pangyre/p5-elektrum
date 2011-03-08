@@ -34,6 +34,10 @@ while ( my $route = <DATA>)
     {
         pass("GET $route");
     }
+    elsif ( $response->is_redirect )
+    {
+        pass("GET $route redirected to " . $response->request->uri);
+    }
     else
     {
         fail("GET $route with status " . $response->code);
@@ -60,7 +64,6 @@ __END__
 /user
 /user/{id}
 /user/{id}/edit
-/user/register
 /user/confirm/{token}
 /user/login
 /user/logout
@@ -77,3 +80,5 @@ __END__
 /admin/{¿ping?}
 /admin/niceuri
 /admin/niceuri/{string}
+/meta/schema
+/meta/spec
