@@ -2,8 +2,7 @@ use strict;
 use warnings;
 use Test::More;
 use ElekTest;
-# use Elektrum::Controller::User;
-#use Catalyst::Test "Elektrum";
+use Elektrum::Controller::User;
 
 my @plain_get = qw(
                    /user
@@ -27,7 +26,6 @@ for my $get ( @plain_get )
     {
         fail("Bad response " . $response->status_message);
     }
-
 }
 
 # Login incorrectly.
@@ -40,9 +38,7 @@ for my $get ( @plain_get )
 }
 
 # Register correctly.
-{
-    "";
-}
+
 
 done_testing();
 
