@@ -35,7 +35,13 @@ sub single : Chained("id") PathPart("") Args(0) {
 
 sub new_node : Chained("base") PathPart("new") Args(0) FormConfig {
     my ( $self, $c ) = @_;
-    my $node = $self->rs->new({});
+    if ( $c->stash->{form}->submitted_and_valid )
+    {
+        # To set parent we must $parent->attach_child
+    }
+    my $node = $self->model->new({});
+    $c->stash->{form}->constraints_from_dbic($self->model);
+    $c->stash->{form}->model->default_values($node);
     $c->stash( node => $node );
 }
 

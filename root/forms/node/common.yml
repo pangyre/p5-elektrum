@@ -1,17 +1,35 @@
 ---
+model_config:
+  resultset: Node
+
 elements:
-  - type: Textarea
-    name: scrit
+  - type: "Text"
+    name: "title"
+    label: "Title"
+
+  - type: "Text"
+    name: "parent_name"
+    label: "Parent"
+  - type: "Hidden"
+    name: "parent"
+
+  - type: "Textarea"
+    name: body
+#    label: "Body"
     constraints:
       - Required
-
-  - type: Text
-    name: parent
-    label: Parent
 
   - type: "Text"
     name: "content_type"
     label: "Content Type"
+    constraints:
+      - Required
+
+  - type: "Select"
+    name: "theme"
+    label: "Theme"
+    constraints:
+      - Required
 
   - type: "Select"
     name: "status"
@@ -20,12 +38,15 @@ elements:
           - [ "draft", "Draft" ]
           - [ "publish", "Publish" ]
           - [ "deleted", "Deleted" ]
+    constraints:
+      - Required
 
-#    model_config:
-#      delete_if_empty: 1
-#      resultset: Scritto
+#  - type: Checkboxgroup
+#       name: authors
+#       model_config:
+#         default_column: f
 
   - type: Submit
     name: x
-    value: Go
+    value: Submit
 

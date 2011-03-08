@@ -1,9 +1,9 @@
 use strict;
 use warnings;
 use Test::More;
-# use Catalyst::Test "Elektrum";
 use ElekTest;
-use Elektrum::Controller::User;
+# use Elektrum::Controller::User;
+#use Catalyst::Test "Elektrum";
 
 my @plain_get = qw(
                    /user
@@ -13,8 +13,21 @@ my @plain_get = qw(
 
 for my $get ( @plain_get )
 {
-    ok( request($get)->is_success, "GET $get" );
-    last if $get eq "register";
+    ok( my $response = request($get), "GET $get" );
+
+    if ( $response->code == 200 )
+    {
+        pass("Success");
+    }
+    elsif ( $response->code == 302 )
+    {
+        pass("Redirect");
+    }
+    else
+    {
+        fail("Bad response " . $response->status_message);
+    }
+
 }
 
 # Login incorrectly.
