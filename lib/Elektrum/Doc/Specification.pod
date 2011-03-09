@@ -170,27 +170,32 @@ View these docs.
 L<Net::DAV::Server> based interface to the root tree.
 
 =head2 /chat
+
 Anonymous too.
 
 =head2 /admin/config/dump
+
 Dump of the context’s configuration.
 
 =head2 /admin/crontab
+
 Not spec’d. Config::Crontab based interface?
 
 =head2 /admin/dump
-Experimental, dangerous interface for raw SQL content dumps.
+Experimental, dangero
+us interface for raw SQL content dumps.
 
 =head2 /admin/inc
+
 Plain text C<%INC> dump.
 
 =head2 /admin/{¿ping?}
+
 Pings alla pingomatic.com.
 
 ./atom
 
 Most resources can take this suffix for an Atom feed.
-
 
 =head2 /admin/niceuri
 
