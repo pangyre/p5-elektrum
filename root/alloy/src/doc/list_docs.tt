@@ -1,0 +1,34 @@
+[%-MACRO perldoc_link(module,text) BLOCK-%][% text ||= module %]
+<a rel="external" href="http://search.cpan.org/perldoc?[% module |
+html | uri %]" title="[% module | 
+html %] on search.cpan.org">[% text | html %]</a>
+[%-END-%]
+
+[%-MACRO local_perldoc_link(module,text) BLOCK-%][% text ||= module %]
+<a href="[% yesh.uri_for("/man/perldoc") %]?[% module | html %]"
+title="[% module | html %]">[% text 
+| html %]</a>
+[%-END-%]
+
+[%-root ||= c.path_to("lib") %]
+[%# THROW "blah blah" %]
+
+<ul>
+[%-FOR kid IN root.children.sort() %]
+  [%-IF ( kid.is_dir AND kid.children ) %]
+    <li><h3>[% kid.relative( c.path_to("lib") ) %]</h3>
+    [%-INCLUDE doc/list_docs.tt root = kid %]</li>
+  [%-END %]
+  [%-NEXT IF ! kid.is_dir AND kid.basename.match('[^\w:.]') %]
+  [%-IF kid.stringify.match('\.(pm|pod)\z') %]
+    [%-name = kid.relative( c.path_to("lib") ).stringify.replace('\.(pm|pod)\z','').replace('/','::') %]
+    <li>[% local_perldoc_link(name) %]</li>
+  [%-END %]
+[%-NEXT %]
+<li>
+  [%-IF kid.stringify.match('(pm|pod)\z') %]
+    [% kid.basename %]
+  [%-END %]
+  [%-INCLUDE doc/list_docs.tt root = kid %]
+  [%-END %]
+</ul>

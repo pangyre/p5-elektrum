@@ -1,0 +1,298 @@
+=pod
+
+=encoding utf-8
+
+=head1 Name
+
+Elektrum::Doc::Specification - ...
+
+=head1 API E<ndash> Routes
+
+=head2 /
+
+=head2 /n/{id}
+
+=head2 /n/{id}/edit
+
+=head2 /n/{id}/feed
+
+=head2 /n/-/{title}
+
+=head2 /n/{id}/plain
+
+Naked view of content type without style.
+
+=head2 /n/search
+
+=head2 /n/random
+
+=head2 /n/{tag};{tag}
+
+=head2 /n/{tag};{tag}/random
+
+=head2 /n/{id}/xml
+
+Atom.
+
+=head2 /n/{tag};{tag}/xml
+
+Atom of provided tags.
+
+=head2 /n/{id}/json?{update_time}
+
+All allowed data specific to that object only.
+
+=head2 /n/{id}/
+
+=head2 /n/{id}/rev/{version}
+
+=head2 /n/{id}/rev/{version|guid?}
+
+=head2 /error/throw/{error code}
+
+=head1 Various Notes
+
+Let's agree that all "time" strings will be YYYYMMDDHHMMSS and YYYYMMDDHHMMSS.MMM where necessary.
+
+=head1 3.0 functionality
+
+=begin html
+
+<a href="https://github.com/pangyre/p5-elektrum">ElektrumPress</a>, current candidate/prototype. What’s the matter? Don’t you get it?
+
+=end html
+
+Status: draft, deleted, publish; how does this jibe with scheduling and display targets?
+Type: article, fragment, asset, comment; with this simple approach nodes can serve any purpose.
+
+Should be some way to extend this so that nodes can serve… Or perhaps the same as the FTL model. No titles at all. Everything is just content. Same side issues though… just conceptually cleaner.
+
+=head2 /
+
+Home page, whatever that will mean.
+
+=head2 /n
+
+GET ⇢ List of articles.
+POST ⇢ Create an article.
+PUT ⇢ Create an article.
+
+=head2 /n/{id}
+
+Individual view, including possible follow up comments and discussion.
+
+=head2 /n/{id}/preview
+
+Individual view of unpublished node for those with permission.
+
+=head2 /n/{id}/edit
+
+…
+
+=head2 /n/{id}/rev
+
+View a list of diffs for a node.
+
+=head2 /n/{id}/rev/{¿guid?}
+
+View a particular diff.
+
+=head2 /n/{id}/preview/{token}
+
+Individual view of unpublished node by rules associated with token; e.g. timespan, no edits, IP.
+
+=head2 /n/random
+
+Visit random node.
+
+=head2 /n/tag/{tag};{tag};{tag}
+
+List view of articles by tag(s).
+
+=head2 /n/tag/{tag};{tag}/random
+
+Visit random node from tag list.
+
+=head2 /n/new
+
+Form which posts to C<link>.
+
+=head2 /n/search/{terms}
+
+Search the site. Terms may be passed in as the param C<q> instead.
+
+=head2 /user
+
+Index of users? Personal page if signed-in?
+
+=head2 /user/{id}
+
+User view.
+
+=head2 /user/{id}/edit
+
+User settings and preferences.
+
+=head2 /user/confirm/{token}
+
+Confirm a native registration, reset a password, etc, etc, etc.
+
+=head2 /user/login
+
+…
+
+=head2 /user/logout
+
+Clears session.
+
+=head2 /user/{id}/edit
+
+User settings and preferences.
+
+=head2 /sitemap
+
+321
+
+=head2 /sitemap.xml
+
+321
+
+=head2 /referer
+
+321
+
+=head2 /doc/
+
+View these docs.
+
+=head2 /dav
+
+L<Net::DAV::Server> based interface to the root tree.
+
+=head2 /chat
+Anonymous too.
+
+=head2 /admin/config/dump
+Dump of the context’s configuration.
+
+=head2 /admin/crontab
+Not spec’d. Config::Crontab based interface?
+
+=head2 /admin/dump
+Experimental, dangerous interface for raw SQL content dumps.
+
+=head2 /admin/inc
+Plain text C<%INC> dump.
+
+=head2 /admin/{¿ping?}
+Pings alla pingomatic.com.
+
+./atom
+
+Most resources can take this suffix for an Atom feed.
+
+
+=head2 /admin/niceuri
+
+GET ⇢ Nice URI index.
+
+POST ⇢ new nice URI; redirects to C</admin/niceuri/{string}>.
+
+=head2 /admin/niceuri/{string}
+
+View/edit a nice URI; should validate it’s allowed by checking actions against it.
+
+
+=begin html
+
+<h3>Authentication realms</h3>
+
+OpenID
+Native with Eks,Bcrypt
+
+
+<h2>New features from 2.0</h2>
+
+<h4>Content</h4>
+<ul>
+<li>As much in place editing as possible; sensible.</li>
+<li>Application dumping of static files on demand, like a 404 page to plug into a web engine.</li>
+<li>Arbitrary, autocomplete tagging of articles.</li>
+<li>Token preview URIs so that previews may be shared.</li>
+<li>Insert table of contents checkbox for view. Parses major tags and perhaps takes a setting for how deep to go.</li>
+</ul>
+
+<h3>Monetization</h3>
+
+Look into needs for DoubleClick and BlogAds and cater to it.
+http://web.blogads.com/publisher_html
+
+<h3>Multi-author</h3>
+
+<h3>Meta features to add/formalize</h3>
+
+<ul>
+<li>Pod viewer and perldoc interface.</li>
+<li>Machine introspection.</li>
+<li>Deployment with <a href="http://search.cpan.org/perldoc?Starman">Starman</a> or similar tool with web interface.</li>
+</ul>
+
+<h2>Static issues…</h2>
+
+<ul>
+<li>Error docs.</li>
+<li><var>cross-domain.xml</var></li>
+<li><var>favicon.ic</var>.</li>
+<li>1x1 gif instructions for most servers and optimization where not possible?</li>
+
+</ul>
+
+<h2>508</h2>
+
+<h2>Deployment</h2>
+
+<ul>
+<li>Starman could be self-HUPing… How to sanity check that you’re not about to crash your server?</li>
+</ul>
+
+Edit links have token so that you can pop a “This {node} has been edited since you came from this link. Perhaps you should view it to see its current state.”
+
+<h2>Functional notes</h2>
+
+<ul>
+<li>Display name is not unique; this is necessary because the origin of the account can vary and because it’s just reality. Names are duplicated. Local usernames can be constrained.</li>
+<li>Usernames are not allowed to be purely numeric; this affords C</user/{name|id}>.</li>
+<li>Cache clearance should cascade for related nodes.</li>
+</ul>
+
+/user/register
+
+Form to create or associate account.
+Supported account creation–
+<ul>
+<li>Native.</li>
+<li>OpenID.</li>
+<li>…?</li>
+</ul>
+
+=end html
+
+
+
+=cut
+
+dl.routeMap dt {
+}
+
+dl.routeMap dd {
+}
+
+dl.routeMap dt.defunct,
+dl.routeMap dt.defunct + dd,
+dl.routeMap dt.defunct + dd + dd,
+dl.routeMap dt.defunct + dd + dd + dd {
+
+}
+
+REMOVED
+

@@ -1,0 +1,48 @@
+[%-IF pom %]
+  [%-UNLESS name.match('\AElektrum\b') %]
+<div style="float:right">
+[% perldoc_link( name ) %]
+</div>
+  [%-END %]
+
+[%-IF warnings.size %]
+<div class="alert">
+<p>The Pod generated warnings. Please see the end of this page for
+more information.</p>
+</div>
+[%-END %]
+
+[%-IF pod_index %]
+<div style="background-color:#fffef9; border:1px solid #dd9; width:33%; font-size:85%; margin: -1em 0 0 1ex; float:right; ">
+[% pod_index %]
+</div>
+[% END %]
+[%-pod %]
+
+[%-IF warnings.size %]
+<div class="alert">
+  <h3>Warnings for this Pod document from [% perldoc_link("Pod::POM") %]</h3>
+  [% FOR warning IN warnings %]
+  <p>[% warning | html %]</p>
+  [% END %]
+</div>
+[%-END %]
+
+[%-ELSIF name %]
+<p>
+Developer fail! No Pod found for [% name | html %].
+ [% UNLESS name.match("Elektrum") %]
+   Try [% perldoc_link(name) %] instead.
+ [% END %]
+</p>
+[%-ELSE %]
+[% META title = "Internal Documentation (Pod viewer)" %]
+
+<p>
+The <b><a
+href="?Elektrum::Doc::Specification">specification</a></b>  and <b><a href="?Elektrum">Elektrum</a></b> are probably all you really want. You can browse any application documents below.
+</p>
+
+[%-PROCESS doc/list_docs.tt %]
+
+[% END %]
