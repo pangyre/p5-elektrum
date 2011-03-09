@@ -1,6 +1,5 @@
 use strict;
 use warnings;
-use Test::More;
 use ElekTest;
 use Elektrum::Controller::User;
 
