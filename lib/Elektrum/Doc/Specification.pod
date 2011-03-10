@@ -8,47 +8,47 @@ Elektrum::Doc::Specification - ...
 
 =head1 API E<ndash> Routes
 
-=head2 /
+=head3 /
 
-=head2 /n/{id}
+=head3 /n/{id}
 
-=head2 /n/{id}/edit
+=head3 /n/{id}/edit
 
-=head2 /n/{id}/feed
+=head3 /n/{id}/feed
 
-=head2 /n/-/{title}
+=head3 /n/-/{title}
 
-=head2 /n/{id}/plain
+=head3 /n/{id}/plain
 
 Naked view of content type without style.
 
-=head2 /n/search
+=head3 /n/search
 
-=head2 /n/random
+=head3 /n/random
 
-=head2 /n/{tag};{tag}
+=head3 /n/{tag};{tag}
 
-=head2 /n/{tag};{tag}/random
+=head3 /n/{tag};{tag}/random
 
-=head2 /n/{id}/xml
+=head3 /n/{id}/xml
 
 Atom.
 
-=head2 /n/{tag};{tag}/xml
+=head3 /n/{tag};{tag}/xml
 
 Atom of provided tags.
 
-=head2 /n/{id}/json?{update_time}
+=head3 /n/{id}/json?{update_time}
 
 All allowed data specific to that object only.
 
-=head2 /n/{id}/
+=head3 /n/{id}/
 
-=head2 /n/{id}/rev/{version}
+=head3 /n/{id}/rev/{version}
 
-=head2 /n/{id}/rev/{version|guid?}
+=head3 /n/{id}/rev/{version|guid?}
 
-=head2 /error/throw/{error code}
+=head3 /error/throw/{error code}
 
 =head1 Various Notes
 
@@ -67,129 +67,129 @@ Type: article, fragment, asset, comment; with this simple approach nodes can ser
 
 Should be some way to extend this so that nodes can serve… Or perhaps the same as the FTL model. No titles at all. Everything is just content. Same side issues though… just conceptually cleaner.
 
-=head2 /
+=head3 /
 
 Home page, whatever that will mean.
 
-=head2 /n
+=head3 /n
 
 GET ⇢ List of articles.
 POST ⇢ Create an article.
 PUT ⇢ Create an article.
 
-=head2 /n/{id}
+=head3 /n/{id}
 
 Individual view, including possible follow up comments and discussion.
 
-=head2 /n/{id}/preview
+=head3 /n/{id}/preview
 
 Individual view of unpublished node for those with permission.
 
-=head2 /n/{id}/edit
+=head3 /n/{id}/edit
 
 …
 
-=head2 /n/{id}/rev
+=head3 /n/{id}/rev
 
 View a list of diffs for a node.
 
-=head2 /n/{id}/rev/{¿guid?}
+=head3 /n/{id}/rev/{¿guid?}
 
 View a particular diff.
 
-=head2 /n/{id}/preview/{token}
+=head3 /n/{id}/preview/{token}
 
 Individual view of unpublished node by rules associated with token; e.g. timespan, no edits, IP.
 
-=head2 /n/random
+=head3 /n/random
 
 Visit random node.
 
-=head2 /n/tag/{tag};{tag};{tag}
+=head3 /n/tag/{tag};{tag};{tag}
 
 List view of articles by tag(s).
 
-=head2 /n/tag/{tag};{tag}/random
+=head3 /n/tag/{tag};{tag}/random
 
 Visit random node from tag list.
 
-=head2 /n/new
+=head3 /n/new
 
 Form which posts to C<link>.
 
-=head2 /n/search/{terms}
+=head3 /n/search/{terms}
 
 Search the site. Terms may be passed in as the param C<q> instead.
 
-=head2 /user
+=head3 /user
 
 Index of users? Personal page if signed-in?
 
-=head2 /user/{id}
+=head3 /user/{id}
 
 User view.
 
-=head2 /user/{id}/edit
+=head3 /user/{id}/edit
 
 User settings and preferences.
 
-=head2 /user/confirm/{token}
+=head3 /user/confirm/{token}
 
 Confirm a native registration, reset a password, etc, etc, etc.
 
-=head2 /user/login
+=head3 /user/login
 
 …
 
-=head2 /user/logout
+=head3 /user/logout
 
 Clears session.
 
-=head2 /user/{id}/edit
+=head3 /user/{id}/edit
 
 User settings and preferences.
 
-=head2 /sitemap
+=head3 /sitemap
 
 321
 
-=head2 /sitemap.xml
+=head3 /sitemap.xml
 
 321
 
-=head2 /referer
+=head3 /referer
 
 321
 
-=head2 /doc/
+=head3 /doc/
 
 View these docs.
 
-=head2 /dav
+=head3 /dav
 
 L<Net::DAV::Server> based interface to the root tree.
 
-=head2 /chat
+=head3 /chat
 
 Anonymous too.
 
-=head2 /admin/config/dump
+=head3 /admin/config/dump
 
 Dump of the context’s configuration.
 
-=head2 /admin/crontab
+=head3 /admin/crontab
 
 Not spec’d. Config::Crontab based interface?
 
-=head2 /admin/dump
+=head3 /admin/dump
 
 Experimental, dangerous interface for raw SQL content dumps.
 
-=head2 /admin/inc
+=head3 /admin/inc
 
 Plain text C<%INC> dump.
 
-=head2 /admin/{¿ping?}
+=head3 /admin/{¿ping?}
 
 Pings alla pingomatic.com.
 
@@ -197,13 +197,13 @@ Pings alla pingomatic.com.
 
 Most resources can take this suffix for an Atom feed.
 
-=head2 /admin/niceuri
+=head3 /admin/niceuri
 
 GET ⇢ Nice URI index.
 
 POST ⇢ new nice URI; redirects to C</admin/niceuri/{string}>.
 
-=head2 /admin/niceuri/{string}
+=head3 /admin/niceuri/{string}
 
 View/edit a nice URI; should validate it’s allowed by checking actions against it.
 
