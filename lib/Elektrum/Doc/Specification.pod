@@ -95,8 +95,6 @@ Visit random node from tag list.
 
 Search the site. Complex terms may be passed in as the param C<q> instead.
 
-=head3 /n/{id}/feed
-
 =head3 /n/{title}/{id}
 
 Title as integer will clash with ids. Is C<id> enough to disambiguate call?

@@ -14,7 +14,7 @@ title="[% module | html %]">[% text
 [%# THROW "blah blah" %]
 
 <ul>
-[%-FOR kid IN root.children.sort() %]
+[%-FOR kid IN root.children %]
   [%-IF ( kid.is_dir AND kid.children ) %]
     <li><h3>[% kid.relative( c.path_to("lib") ) %]</h3>
     [%-INCLUDE doc/list_docs.tt root = kid %]</li>
