@@ -66,13 +66,14 @@ sub index : Path Args(0) {
                title => $title,
                name => $name,
                pod_index => $pod_index,
-               pod => Encode::decode_utf8(Yesh::Pod::POM::View::HTML->print($pom)),
+               pod => Encode::decode_utf8(Elektrum::Pod::POM::View::HTML->print($pom)),
                warnings => [ $parser->warnings ],
         );
 }
 
+# This should go in a model? View plugin?
 BEGIN {
-    package Yesh::Pod::POM::View::HTML;
+    package Elektrum::Pod::POM::View::HTML;
     eval 'use parent "Pod::POM::View::HTML"';
     use HTML::Entities;
     use URI::Escape;
@@ -160,6 +161,16 @@ BEGIN {
         my $title = $head3->title->present($self);
         return "<h4>$title</h4>\n"
             . $head3->content->present($self);
+    }
+
+    sub view_verbatim {
+        my ( $self, $text ) = @_;
+
+        my @leading = sort { length $a <=> length $b }
+            $text =~ /(?:(?<=\A)|(?<=\n))( +)/g;
+
+        $text =~ s/(?:(?<=\A)|(?<=\n))$leading[0]//g;
+        $self->SUPER::view_verbatim($text);
     }
 
     sub view_head4 {
