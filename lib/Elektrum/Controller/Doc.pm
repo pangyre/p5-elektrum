@@ -1,5 +1,6 @@
 package Elektrum::Controller::Doc;
 use Moose;
+no warnings "uninitialized";
 use Pod::Pom;
 use HTML::Entities;
 use URI::Escape;
@@ -51,9 +52,10 @@ sub index : Path Args(0) {
     my ( @head1, @head2 );
     for my $part ( $pom->content )
     {
-        next unless $part->type eq 'head1';
+        next unless $part->type =~ /\Ahead\d\z/;
+        ( my $name = $part->title ) =~ s/\W/_/g;
         push @head1, sprintf(qq{<li><a href="#%s">%s</a></li>},
-                             uri_escape(encode_entities($part->title)),
+                             $name,
                              encode_entities($part->title),
             );
         # push @head1, $part->title if $part->type eq 'head1';
@@ -138,8 +140,9 @@ BEGIN {
     sub view_head1 {
         my ($self, $head1) = @_;
         my $title = $head1->title->present($self);
-        return sprintf(qq{<h2><a name="$title">$title</a></h2>\n\n},
-                       uri_escape(encode_entities($title)),
+        ( my $name = $title ) =~ s/\W/_/g;
+        return sprintf(qq{<h2><a name="%s">%s</a></h2>\n\n},
+                       $name,
                        encode_entities($title),
             )
             . $head1->content->present($self);

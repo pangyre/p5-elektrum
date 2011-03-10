@@ -6,13 +6,15 @@
 
 Elektrum::Doc::Specification - ...
 
-=head1 API E<ndash> Routes
+=head1 API – Routes
 
-=head2 Standalone
+=head2 Home
 
 =head3 /
 
 Home page, whatever that will mean.
+
+=head2 Grab-bag
 
 =head3 /sitemap
 
@@ -28,7 +30,7 @@ Like the Yesh 1.0/Sedition·com implementation.
 
 =head3 /referer/cloud
 
-=head3 /doc/
+=head3 /doc/{resource}
 
 View these docs.
 
@@ -114,8 +116,6 @@ Naked view of content type without style. Charset from node. Supported content t
 =item * xml ⇢application/xml
 
 =item * atom ⇢application/atom+xml
-
-=item * what ⇢that/that
 
 =back
 
@@ -219,7 +219,6 @@ POST ⇢ new nice URI; redirects to C</meta/niceuri/{string}>.
 
 View/edit a nice URI; should validate it’s allowed by checking actions against it.
 
-
 =begin html
 
 <h3>Authentication realms</h3>
@@ -278,7 +277,7 @@ Edit links have token so that you can pop a “This {node} has been edited since
 
 <ul>
 <li>Display name is not unique; this is necessary because the origin of the account can vary and because it’s just reality. Names are duplicated. Local usernames can be constrained.</li>
-<li>Usernames are not allowed to be purely numeric; this affords C</user/{name|id}>.</li>
+<li>Usernames are not allowed to be purely numeric; this affords <var>/user/{name|id}</var>.</li>
 <li>Cache clearance should cascade for related nodes.</li>
 </ul>
 
