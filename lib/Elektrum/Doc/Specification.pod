@@ -12,6 +12,34 @@ Elektrum::Doc::Specification - ...
 
 =head3 /
 
+Home page, whatever that will mean.
+
+=head3 /sitemap
+
+XML, gzipped, cached.
+
+=head3 /sitemap.xml
+
+Forwards to L</sitemap>.
+
+=head3 /referer
+
+Like the Yesh 1.0/Sedition·com implementation.
+
+=head3 /referer/cloud
+
+=head3 /doc/
+
+View these docs.
+
+=head3 /dav
+
+L<Net::DAV::Server> based interface to the root tree.
+
+=head3 /chat
+
+Anonymous too.
+
 =head2 Nodes (Articles|Posts|Items|Fragments)
 
 =head3 /n
@@ -73,76 +101,33 @@ Title as integer will clash with ids. Is C<id> enough to disambiguate call?
 
 =head3 /n/{id}/{ct}
 
-Naked view of content type without style. Supported content types–
+Naked view of content type without style. Charset from node. Supported content types–
 
 =over 4
 
 =item * plain ⇢text/plain
 
+=item * view ⇢(no wrapper, pure content of node)
+
 =item * json ⇢application/json
 
 =item * xml ⇢application/xml
+
+=item * atom ⇢application/atom+xml
 
 =item * what ⇢that/that
 
 =back
 
-=head3 /n/search
-
-=head3 /n/random
-
-=head3 /n/{id}/xml
-
-Atom.
-
 =head3 /n/{tag};{tag}/xml
 
 Atom of provided tags.
-
-=head3 /n/{id}/json?{update_time}
-
-All allowed data specific to that object only.
-
-=head3 /n/{id}/
-
-=head3 /n/{id}/rev/{version}
-
-=head3 /n/{id}/rev/{version|guid?}
 
 =head2 Error Testing
 
 These functions will only work for those with a site role of tester or if the site is run under debug.
 
 =head3 /error/throw/{error code}
-
-=head1 Various Notes
-
-Let's agree that all "time" strings will be YYYYMMDDHHMMSS and YYYYMMDDHHMMSS.MMM where necessary.
-
-=head1 3.0 functionality
-
-=begin html
-
-<a href="https://github.com/pangyre/p5-elektrum">ElektrumPress</a>, current candidate/prototype. What’s the matter? Don’t you get it?
-
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
-<script type="text/javascript">//<![CDATA[
-jQuery(function($){
-  $("h4").click(function(){ $("h4 + p").toggle(); });
-});
-//]]> </script>
-
-=end html
-
-Status: draft, deleted, publish; how does this jibe with scheduling and display targets?
-Type: article, fragment, asset, comment; with this simple approach nodes can serve any purpose.
-
-Should be some way to extend this so that nodes can serve… Or perhaps the same as the FTL model. No titles at all. Everything is just content. Same side issues though… just conceptually cleaner.
-
-=head3 /
-
-Home page, whatever that will mean.
 
 =head2 User
 
@@ -174,61 +159,63 @@ Clears session.
 
 User settings and preferences.
 
-=head3 /sitemap
+=head2 Meta
 
-321
-
-=head3 /sitemap.xml
-
-321
-
-=head3 /referer
-
-321
-
-=head3 /doc/
-
-View these docs.
-
-=head3 /dav
-
-L<Net::DAV::Server> based interface to the root tree.
-
-=head3 /chat
-
-Anonymous too.
-
-=head3 /admin/config/dump
+=head3 /meta/config/dump
 
 Dump of the context’s configuration.
 
-=head3 /admin/crontab
+=head3 /meta/crontab
 
 Not spec’d. Config::Crontab based interface?
 
-=head3 /admin/dump
+=head3 /meta/dump
 
 Experimental, dangerous interface for raw SQL content dumps.
 
-=head3 /admin/inc
+=head3 /meta/inc
 
 Plain text C<%INC> dump.
 
-=head3 /admin/{¿ping?}
+=head3 /meta/{¿ping?}
 
 Pings alla pingomatic.com.
 
-./atom
 
-Most resources can take this suffix for an Atom feed.
+=head1 Various Notes
 
-=head3 /admin/niceuri
+Let's agree that all "time" strings will be YYYYMMDDHHMMSS and YYYYMMDDHHMMSS.MMM where necessary.
+
+=head1 3.0 functionality
+
+=begin html
+
+<a href="https://github.com/pangyre/p5-elektrum">ElektrumPress</a>, current candidate/prototype. What’s the matter? Don’t you get it?
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
+<script type="text/javascript">//<![CDATA[
+jQuery(function($){
+  $("h4").click(function(){ $("h4 + p").toggle(); }).trigger("click");
+});
+//]]> </script>
+
+=end html
+
+Status: draft, deleted, publish; how does this jibe with scheduling and display targets?
+Type: article, fragment, asset, comment; with this simple approach nodes can serve any purpose.
+
+Should be some way to extend this so that nodes can serve… Or perhaps the same as the FTL model. No titles at all. Everything is just content. Same side issues though… just conceptually cleaner.
+
+Most resources can take xml suffix for an Atom feed.
+
+=head3 /meta/niceuri
 
 GET ⇢ Nice URI index.
 
-POST ⇢ new nice URI; redirects to C</admin/niceuri/{string}>.
+POST ⇢ new nice URI; redirects to C</meta/niceuri/{string}>.
 
-=head3 /admin/niceuri/{string}
+=head3 /meta/niceuri/{string}
 
 View/edit a nice URI; should validate it’s allowed by checking actions against it.
 
