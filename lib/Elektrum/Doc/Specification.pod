@@ -8,68 +8,11 @@ Elektrum::Doc::Specification - ...
 
 =head1 API E<ndash> Routes
 
-=head3 /
-
-=head3 /n/{id}
-
-=head3 /n/{id}/edit
-
-=head3 /n/{id}/feed
-
-=head3 /n/-/{title}
-
-=head3 /n/{id}/plain
-
-Naked view of content type without style.
-
-=head3 /n/search
-
-=head3 /n/random
-
-=head3 /n/{tag};{tag}
-
-=head3 /n/{tag};{tag}/random
-
-=head3 /n/{id}/xml
-
-Atom.
-
-=head3 /n/{tag};{tag}/xml
-
-Atom of provided tags.
-
-=head3 /n/{id}/json?{update_time}
-
-All allowed data specific to that object only.
-
-=head3 /n/{id}/
-
-=head3 /n/{id}/rev/{version}
-
-=head3 /n/{id}/rev/{version|guid?}
-
-=head3 /error/throw/{error code}
-
-=head1 Various Notes
-
-Let's agree that all "time" strings will be YYYYMMDDHHMMSS and YYYYMMDDHHMMSS.MMM where necessary.
-
-=head1 3.0 functionality
-
-=begin html
-
-<a href="https://github.com/pangyre/p5-elektrum">ElektrumPress</a>, current candidate/prototype. What’s the matter? Don’t you get it?
-
-=end html
-
-Status: draft, deleted, publish; how does this jibe with scheduling and display targets?
-Type: article, fragment, asset, comment; with this simple approach nodes can serve any purpose.
-
-Should be some way to extend this so that nodes can serve… Or perhaps the same as the FTL model. No titles at all. Everything is just content. Same side issues though… just conceptually cleaner.
+=head2 Standalone
 
 =head3 /
 
-Home page, whatever that will mean.
+=head2 Nodes (Articles|Posts|Items|Fragments)
 
 =head3 /n
 
@@ -77,17 +20,22 @@ GET ⇢ List of articles.
 POST ⇢ Create an article.
 PUT ⇢ Create an article.
 
-=head3 /n/{id}
+=head3 /n/new
 
-Individual view, including possible follow up comments and discussion.
+Form which posts to C</n>.
+
+
+=head3 /n/{id}/edit
+
+…
 
 =head3 /n/{id}/preview
 
 Individual view of unpublished node for those with permission.
 
-=head3 /n/{id}/edit
+=head3 /n/{id}
 
-…
+Individual view, including possible follow up comments and discussion.
 
 =head3 /n/{id}/rev
 
@@ -113,13 +61,90 @@ List view of articles by tag(s).
 
 Visit random node from tag list.
 
-=head3 /n/new
+=head3 /n/search/{simple query string}
 
-Form which posts to C<link>.
+Search the site. Complex terms may be passed in as the param C<q> instead.
 
-=head3 /n/search/{terms}
+=head3 /n/{id}/feed
 
-Search the site. Terms may be passed in as the param C<q> instead.
+=head3 /n/{title}/{id}
+
+Title as integer will clash with ids. Is C<id> enough to disambiguate call?
+
+=head3 /n/{id}/{ct}
+
+Naked view of content type without style. Supported content types–
+
+=over 4
+
+=item * plain ⇢text/plain
+
+=item * json ⇢application/json
+
+=item * xml ⇢application/xml
+
+=item * what ⇢that/that
+
+=back
+
+=head3 /n/search
+
+=head3 /n/random
+
+=head3 /n/{id}/xml
+
+Atom.
+
+=head3 /n/{tag};{tag}/xml
+
+Atom of provided tags.
+
+=head3 /n/{id}/json?{update_time}
+
+All allowed data specific to that object only.
+
+=head3 /n/{id}/
+
+=head3 /n/{id}/rev/{version}
+
+=head3 /n/{id}/rev/{version|guid?}
+
+=head2 Error Testing
+
+These functions will only work for those with a site role of tester or if the site is run under debug.
+
+=head3 /error/throw/{error code}
+
+=head1 Various Notes
+
+Let's agree that all "time" strings will be YYYYMMDDHHMMSS and YYYYMMDDHHMMSS.MMM where necessary.
+
+=head1 3.0 functionality
+
+=begin html
+
+<a href="https://github.com/pangyre/p5-elektrum">ElektrumPress</a>, current candidate/prototype. What’s the matter? Don’t you get it?
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
+<script type="text/javascript">//<![CDATA[
+jQuery(function($){
+  $("h4").click(function(){ $("h4 + p").toggle(); });
+});
+//]]> </script>
+
+=end html
+
+Status: draft, deleted, publish; how does this jibe with scheduling and display targets?
+Type: article, fragment, asset, comment; with this simple approach nodes can serve any purpose.
+
+Should be some way to extend this so that nodes can serve… Or perhaps the same as the FTL model. No titles at all. Everything is just content. Same side issues though… just conceptually cleaner.
+
+=head3 /
+
+Home page, whatever that will mean.
+
+=head2 User
 
 =head3 /user
 
