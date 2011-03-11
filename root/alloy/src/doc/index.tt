@@ -29,7 +29,8 @@ more information.</p>
 [%-END %]
 
 [%-ELSIF name %]
-<p>
+
+<p class="alert">
 Developer fail! No Pod found for [% name | html %].
  [% UNLESS name.match("Elektrum") %]
    Try [% perldoc_link(name) %] instead.

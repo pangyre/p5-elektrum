@@ -17,11 +17,17 @@ after "base" => sub {
     my $class = blessed($self);
     ( my $model = $class ) =~ s/\A.+::/DBIC::/; # E.g., Elektrum::Controller::Node
     ( my $isa = $class ) =~ s/Controller/Schema::ResultSet/;
-#    die $model;
     $self->set_rs( $c->model($model)->search );
     $self->set_model( $c->model($model) );
 };
 
+sub txn_scope_guard {
+    my ( $self, $c ) = @_;
+    $c->model("DBIC")->schema->txn_scope_guard;
+}
+
 1;
 
 __END__
+
+

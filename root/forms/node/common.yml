@@ -22,6 +22,8 @@ elements:
   - type: "Text"
     name: "content_type"
     label: "Content Type"
+    default: "text/html"
+    retain_default: Yes
     constraints:
       - Required
 

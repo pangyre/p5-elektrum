@@ -14,7 +14,19 @@ sub list : Chained("base") PathPart("") CaptureArgs(0) {
 
 sub index : Chained("list") PathPart("") Args(0) {
     my ( $self, $c ) = @_;
+    if ( $c->request->method eq "POST" )
+    {
+        $c->detach("create");
+    }
     $c->stash( template => "node/index.tt" );
+}
+
+sub create : Private {
+    my ( $self, $c ) = @_;
+    my $guard = $self->txn_scope_guard;
+
+
+#    $guard->commit;
 }
 
 sub atom : Chained("list") Args(0) {
@@ -35,14 +47,19 @@ sub single : Chained("id") PathPart("") Args(0) {
 
 sub new_node : Chained("base") PathPart("new") Args(0) FormConfig {
     my ( $self, $c ) = @_;
-    if ( $c->stash->{form}->submitted_and_valid )
+    my $form = $c->stash->{form};
+
+    if ( $form->submitted_and_valid )
     {
-        # To set parent we must $parent->attach_child
+        $c->forward("create");
     }
-    my $node = $self->model->new({});
-    $c->stash->{form}->constraints_from_dbic($self->model);
-    $c->stash->{form}->model->default_values($node);
-    $c->stash( node => $node );
+    else
+    {
+        my $node = $self->model->new({});
+        $form->constraints_from_dbic($self->model);
+        $form->model->default_values($node);
+        $c->stash( node => $node );
+    }
 }
 
 sub edit : Chained("id") Args(0) {

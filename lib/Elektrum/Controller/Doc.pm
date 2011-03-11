@@ -142,7 +142,7 @@ BEGIN {
         my ($self, $head1) = @_;
         my $title = $head1->title->present($self);
         ( my $name = $title ) =~ s/\W/_/g;
-        return sprintf(qq{<h2><a name="%s">%s</a></h2>\n\n},
+        return sprintf(qq{<h2><a name="%s"></a>%s</h2>\n\n},
                        $name,
                        encode_entities($title),
             )
@@ -174,18 +174,29 @@ BEGIN {
     }
 
     sub view_head4 {
-        my ($self, $head4) = @_;
+        my ( $self, $head4 ) = @_;
         my $title = $head4->title->present($self);
         return "<h5>$title</h5>\n"
             . $head4->content->present($self);
     }
 
     sub view_pod {
-        my ($self, $pod) = @_;
+        my ( $self, $pod ) = @_;
         return join("\n",
                     '<div class="pod">',
                     $pod->content->present($self),
                     '</div>');
+    }
+
+    sub _build_index {
+        my ( $node, $tree ) = @_;
+        $tree .= "<ul><li>" . $node->title;
+        for my $kid ( $node->content )
+        {
+            next unless $kid->type =~ /\Ahead/;
+            _build_index($kid, $tree);
+        }
+        $tree .= "</li></ul>";
     }
 }
 
@@ -251,3 +262,6 @@ sub Pod::POM::View::HTML::view_seq_link_transform_path {
     my ( $self, $page ) = @_;
     return "?$page";
 }
+title =>
+name => 
+kids => 
