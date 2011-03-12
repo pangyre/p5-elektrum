@@ -8,7 +8,7 @@ sub TO_JSON { return { +shift->get_columns } }
 sub new {
     my $self = +shift->next::method(@_);
     $self->created(\q{datetime('now')}) unless $self->created;
-    $self->udpated(\q{datetime('now')}) unless $self->updated;
+    $self->updated(\q{datetime('now')}) unless $self->updated;
     $self;
 }
 

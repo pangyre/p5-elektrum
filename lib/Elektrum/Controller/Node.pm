@@ -44,7 +44,6 @@ sub single : Chained("id") PathPart("") Args(0) {
 sub new_node : Chained("base") PathPart("new") Args(0) FormConfig {
     my ( $self, $c ) = @_;
     my $form = $c->stash->{form};
-
     my $node = $self->model->new({});
     $form->constraints_from_dbic($self->model);
     $form->model->default_values($node);
@@ -60,8 +59,19 @@ sub new_node : Chained("base") PathPart("new") Args(0) FormConfig {
     }
 }
 
-sub edit : Chained("id") Args(0) {
+sub edit : Chained("id") Args(0) FormConfig {
     my ( $self, $c ) = @_;
+    my $form = $c->stash->{form};
+    my $node = $c->stash->{node};
+    $form->constraints_from_dbic($self->model);
+    $form->model->default_values($node);
+    if ( $form->submitted_and_valid )
+    {
+        my $guard = $self->txn_scope_guard;        
+        $form->model->update( $node );
+        $guard->commit;
+        $c->response->redirect( $c->uri_for_action("node/single", [$node->id]) );
+    }
 }
 
 sub revisions : Chained("id") PathPart("rev") Args(0) {
