@@ -10,6 +10,7 @@ sub base : Chained("/") PathPart("n") CaptureArgs(0) {
 
 sub list : Chained("base") PathPart("") CaptureArgs(0) {
     my ( $self, $c ) = @_;
+    $c->stash( nodes => $self->rs );
 }
 
 sub index : Chained("list") PathPart("") Args(0) {

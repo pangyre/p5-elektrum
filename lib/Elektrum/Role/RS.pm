@@ -17,7 +17,7 @@ after "base" => sub {
     my $class = blessed($self);
     ( my $model = $class ) =~ s/\A.+::/DBIC::/; # E.g., Elektrum::Controller::Node
     ( my $isa = $class ) =~ s/Controller/Schema::ResultSet/;
-    $self->set_rs( $c->model($model)->search );
+    $self->set_rs( $c->model($model)->search_rs );
     $self->set_model( $c->model($model) );
 };
 

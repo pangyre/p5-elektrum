@@ -1,1 +1,9 @@
-[% node.get_columns.join(" + ") %]
+<div class="article">
+  <div class="header">
+    <h2>
+  [% node.title %]
+    </h2>
+  </div>
+  [% node.body %]
+</div>
+

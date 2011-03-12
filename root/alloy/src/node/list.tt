@@ -1,5 +1,3 @@
-[% FOR node IN nodes %]
-<div class="article">
-[% node %]
-</div>
+[% FOR node IN nodes.all %]
+  [% PROCESS node/single.tt %]
 [% END %]

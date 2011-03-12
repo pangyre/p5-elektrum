@@ -8,9 +8,14 @@ use IO::File;
 use namespace::autoclean;
 BEGIN { extends 'Catalyst::Controller' }
 
+sub with_name : Path Args(1) {
+    my ( $self, $c, $name ) = @_;
+    $c->go("index");
+}
+
 sub index : Path Args(0) {
     my ( $self, $c ) = @_;
-    my $name = $c->req->uri->query;
+    my $name = $c->request->arguments->[0] || $c->req->uri->query;
     ( my $path_part = $name ) =~ s,::,/,g;
 
     return unless $path_part;
