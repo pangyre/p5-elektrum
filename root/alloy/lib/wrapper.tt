@@ -27,11 +27,17 @@ jQuery(function($){
 [%-END %]
   <div class="nav">
     <ul>
+      <li><a class="button black" href="[% c.uri_for("/") %]">/</a></li>
+      <li><a class="button black" href="[% c.uri_for("/n") %]">/n</a></li>
 [%-IF c.user_exists-%]
       <li><a class="button" href="[% c.user.url | html %]">[% ( c.user.nickname || c.user.display ) | html %]</a></li>
       <li><a class="button green" href="[% c.uri_for("/n/create") %]">new post</a></li>
 [%-END-%]
-      <li><a class="button black" href="[% c.uri_for("/doc","Elektrum::Doc::Specification") %]">Spec</a></li>
+[% IF c.request.uri.path.match("Elektrum::Doc::Specification") %]
+      <li><a class="button black" href="[% c.uri_for("/doc") %]">doc</a></li>
+[% ELSE %]
+      <li><a class="button black" href="[% c.uri_for("/doc","Elektrum::Doc::Specification") %]">spec</a></li>
+[% END %]
         [%-IF c.check_user_role("admin") %]
           <li><a title="Admin" href="[% c.uri_for("/admin") %]" class="button white">...?</a></li>
         [%-END %]

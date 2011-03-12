@@ -129,7 +129,7 @@ BEGIN {
         $linktext = $orig_link unless defined $linktext;
 
         my $url = '';
-        if (defined $page && length $page) {
+        if ( defined $page && length $page ) {
             $url = $self->view_seq_link_transform_path($page);
         }
 
@@ -141,6 +141,10 @@ BEGIN {
             defined $section and length $section;
 
         return Pod::POM::View::HTML::make_href($url, $linktext);
+    }
+    sub view_seq_link_transform_path {
+        my ( $self, $page ) = @_;
+        return "./$page";
     }
 
     sub view_head1 {
@@ -263,10 +267,6 @@ sub auto : Private {
 
 __END__
 
-sub Pod::POM::View::HTML::view_seq_link_transform_path {
-    my ( $self, $page ) = @_;
-    return "?$page";
-}
 title =>
 name => 
 kids => 
