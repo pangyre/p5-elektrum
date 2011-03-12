@@ -23,7 +23,7 @@ after "base" => sub {
 
 sub txn_scope_guard {
     my ( $self, $c ) = @_;
-    $c->model("DBIC")->schema->txn_scope_guard;
+    $self->model->result_source->schema->txn_scope_guard;
 }
 
 1;

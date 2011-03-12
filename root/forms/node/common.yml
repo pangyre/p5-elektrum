@@ -15,7 +15,6 @@ elements:
 
   - type: "Textarea"
     name: body
-#    label: "Body"
     constraints:
       - Required
 
@@ -27,9 +26,11 @@ elements:
     constraints:
       - Required
 
-  - type: "Select"
+  - type: "Text"
     name: "theme"
     label: "Theme"
+    default: "CandyCoded"
+    retain_default: Yes
     constraints:
       - Required
 

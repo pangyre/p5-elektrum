@@ -23,10 +23,6 @@ sub index : Chained("list") PathPart("") Args(0) {
 
 sub create : Private {
     my ( $self, $c ) = @_;
-    my $guard = $self->txn_scope_guard;
-
-
-#    $guard->commit;
 }
 
 sub atom : Chained("list") Args(0) {
@@ -36,29 +32,31 @@ sub atom : Chained("list") Args(0) {
 
 sub id : Chained("base") PathPart("") CaptureArgs(1) {
     my ( $self, $c, $id ) = @_;
-    my $node = $self->rs->find($id)
+    $c->stash->{node} = $self->model->find($id)
         or $c->detach("Error", [404]);
 }
 
 sub single : Chained("id") PathPart("") Args(0) {
     my ( $self, $c ) = @_;
-    $c->stash( template => "node/view_single.tt" );
+#    $c->stash( template => "node/single.tt" );
 }
 
 sub new_node : Chained("base") PathPart("new") Args(0) FormConfig {
     my ( $self, $c ) = @_;
     my $form = $c->stash->{form};
 
+    my $node = $self->model->new({});
+    $form->constraints_from_dbic($self->model);
+    $form->model->default_values($node);
+#     $c->stash( node => $node );
+
     if ( $form->submitted_and_valid )
     {
-        $c->forward("create");
-    }
-    else
-    {
-        my $node = $self->model->new({});
-        $form->constraints_from_dbic($self->model);
-        $form->model->default_values($node);
-        $c->stash( node => $node );
+        my $guard = $self->txn_scope_guard;        
+        $form->model->update( $node );
+        $guard->commit;
+        $node->discard_changes;
+        $c->response->redirect( $c->uri_for_action("node/single", [$node->id]) );
     }
 }
 
