@@ -29,12 +29,11 @@ jQuery(function($){
     <ul>
 [%-IF c.user_exists-%]
       <li><a class="button" href="[% c.user.url | html %]">[% ( c.user.nickname || c.user.display ) | html %]</a></li>
-      <li><a class="button green" href="[% c.uri_for("/n/new") %]">new post</a></li>
+      <li><a class="button green" href="[% c.uri_for("/n/create") %]">new post</a></li>
 [%-END-%]
 
         [%-IF c.check_user_role("admin") %]
-        <li><a title="Admin" href="[% c.uri_for("/admin") %]" class="button white">Admin</a></li>
-        <li><a title="New Node" href="[% c.uri_for("/admin/node/new") %]" class="button white">New</a></li>
+          <li><a title="Admin" href="[% c.uri_for("/admin") %]" class="button white">...?</a></li>
         [%-END %]
         <li><a href="https://github.com/pangyre/p5-elektrum"
                class="button white">github·elektrum</a></li>

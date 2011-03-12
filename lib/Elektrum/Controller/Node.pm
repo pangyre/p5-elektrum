@@ -21,10 +21,6 @@ sub index : Chained("list") PathPart("") Args(0) {
     $c->stash( template => "node/index.tt" );
 }
 
-sub create : Private {
-    my ( $self, $c ) = @_;
-}
-
 sub atom : Chained("list") Args(0) {
     my ( $self, $c ) = @_;
     $c->stash( template => "node/index.tt" );
@@ -41,12 +37,11 @@ sub single : Chained("id") PathPart("") Args(0) {
 #    $c->stash( template => "node/single.tt" );
 }
 
-sub new_node : Chained("base") PathPart("new") Args(0) FormConfig {
+sub create : Chained("base") Args(0) FormConfig {
     my ( $self, $c ) = @_;
     my $form = $c->stash->{form};
     my $node = $self->model->new({});
     $form->constraints_from_dbic($self->model);
-    $form->model->default_values($node);
 #     $c->stash( node => $node );
 
     if ( $form->submitted_and_valid )

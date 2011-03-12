@@ -10,6 +10,7 @@ elements:
   - type: "Text"
     name: "parent_name"
     label: "Parent"
+
   - type: "Hidden"
     name: "parent"
 
@@ -29,10 +30,7 @@ elements:
   - type: "Text"
     name: "theme"
     label: "Theme"
-    default: "CandyCoded"
-    retain_default: Yes
-    constraints:
-      - Required
+    value: "CandyCoded"
 
   - type: "Select"
     name: "status"
