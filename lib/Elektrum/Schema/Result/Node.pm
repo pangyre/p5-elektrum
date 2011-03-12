@@ -3,7 +3,7 @@ use warnings;
 use strict;
 use parent "DBIx::Class::Core";
 
-__PACKAGE__->load_components(qw( Tree::Mobius ));
+__PACKAGE__->load_components(qw( Tree::Mobius +Elektrum::Schema::Phat ));
 
 __PACKAGE__->table("node");
 
