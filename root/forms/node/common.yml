@@ -4,10 +4,6 @@ model_config:
 
 elements:
   - type: "Text"
-    name: "title"
-    label: "Title"
-
-  - type: "Text"
     name: "parent_name"
     label: "Parent"
 
@@ -15,7 +11,7 @@ elements:
     name: "parent"
 
   - type: "Textarea"
-    name: body
+    name: content
     constraints:
       - Required
 

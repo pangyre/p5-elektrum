@@ -1,9 +1,12 @@
 <div class="article">
   <div class="header">
     <h2>
-  [% node.title %]
+Title is a mystery right now&hellip;
     </h2>
   </div>
-  [% node.body %]
+  [%# node || "Node isn't even defined.<br />" %]
+  [% node.content || "No content." %]
 </div>
+
+
 

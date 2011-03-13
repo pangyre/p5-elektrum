@@ -16,10 +16,8 @@ __PACKAGE__->add_columns(
         is_nullable => 0,
         size => 10,
     },
-    "title",
-    { data_type => "varchar", default_value => "", is_nullable => 1, size => 255 },
-    "body",
-    { data_type => "mediumtext", default_value => "", is_nullable => 0 },
+    "content",
+    { data_type => "longtext", default_value => "", is_nullable => 0 },
     "theme",
     { data_type => "varchar", is_nullable => 1, size => 255 },
     # SLUG SHOULD BE ANOTHER NODE
@@ -62,6 +60,39 @@ __PACKAGE__->add_columns(
 __PACKAGE__->set_primary_key("id");
 
 __PACKAGE__->add_mobius_tree_columns();
+
+__PACKAGE__->inflate_column("content",
+                            {
+                                inflate => \&to_elektrum_content,
+                                deflate => \&to_string,
+                            });
+
+
+BEGIN {
+    package Elektrum::Content::Node;
+    use Moose;
+    with "MooseX::Object::Pluggable";
+    use overload
+        q{""} => sub { +shift->content },
+        fallback => 1;
+        
+    has "content" =>
+        isa => "Str",
+        is => "rw",
+        required => 1,
+        ;
+
+    1;
+}
+
+sub to_elektrum_content {
+    Elektrum::Content::Node->new({ content => +shift });
+}
+
+sub to_string {
+#    my $node = shift;
+    +shift->content;
+}
 
 1;
 
@@ -189,4 +220,10 @@ __PACKAGE__->add_columns(
     inner => { data_type => "boolean",
                default_value => 0,
                is_nullable => 0 },
+    );
+__PACKAGE__->may_have(
+  "title",
+    __PACKAGE__,
+    { id => "article" },
+    {},
     );

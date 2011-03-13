@@ -11,6 +11,8 @@ sub index :Path :Args(0) {
 
 sub not_found :Path {
     my ( $self, $c ) = @_;
+    $c->log->info("not_found called with: " . $c->request->uri->path_query)
+        if $c->debug;
     $c->go("Error", [404]);
 }
 

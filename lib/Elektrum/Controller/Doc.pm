@@ -54,23 +54,26 @@ sub index : Path Args(0) {
 
     my $title = "$pom" ? $name : "Pod Viewer";
 
-    my ( @head1, @head2 );
-    for my $part ( $pom->content )
+    if ( "$pom" )
     {
-        next unless $part->type =~ /\Ahead\d\z/;
-        ( my $name = $part->title ) =~ s/\W/_/g;
-        push @head1, sprintf(qq{<li><a href="#%s">%s</a></li>},
-                             $name,
-                             encode_entities($part->title),
-            );
-        # push @head1, $part->title if $part->type eq 'head1';
-        # LATER, STUPID push @{$head2[@head1]}, $part->title if $part->type eq 'head2';
+        my ( @head1, @head2 );
+        for my $part ( $pom->content )
+        {
+            next unless $part->type =~ /\Ahead\d\z/;
+            ( my $name = $part->title ) =~ s/\W/_/g;
+            push @head1, sprintf(qq{<li><a href="#%s">%s</a></li>},
+                                 $name,
+                                 encode_entities($part->title),
+                );
+            # push @head1, $part->title if $part->type eq 'head1';
+            # LATER, STUPID push @{$head2[@head1]}, $part->title if $part->type eq 'head2';
+        }
+        $c->stash->{pod_index} = @head1 > 1 ? "<ul>" . join("\n", @head1) . "</ul>" : "";
     }
-    my $pod_index = @head1 > 1 ? "<ul>" . join("\n", @head1) . "</ul>" : "";
+
     $c->stash( pom => "$pom" ? $pom : "",
                title => $title,
                name => $name,
-               pod_index => $pod_index,
                pod => Encode::decode_utf8(Elektrum::Pod::POM::View::HTML->print($pom)),
                warnings => [ $parser->warnings ],
         );
@@ -82,11 +85,6 @@ BEGIN {
     eval 'use parent "Pod::POM::View::HTML"';
     use HTML::Entities;
     use URI::Escape;
-
-    sub view_seq_link_transform_path {
-        my ( $self, $page ) = @_;
-        return "?$page";
-    }
 
     sub view_seq_link {
         my ($self, $link) = @_;
