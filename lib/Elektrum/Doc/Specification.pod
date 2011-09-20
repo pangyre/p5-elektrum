@@ -179,6 +179,24 @@ Plain text C<%INC> dump.
 
 Pings alla pingomatic.com.
 
+=head1 Node Content Filtering
+
+Raw nodes are in sites specific free form plain text with extended XML
+content. The extended XML elements SHOULD be consumed and transformed
+for output in such a way that the final document is a valid version
+agnostic HTML fragment.
+
+=over 4
+
+=item * DB record is text with mixed HTML and XML content.
+
+=item * Record is inflated to object viaE<ndash>
+
+=item * HTML::Class-E<gt>new_fragment?
+
+=back
+
+Site plugins are used to extend DTD for content.
 
 =head1 Various Notes
 

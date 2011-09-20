@@ -1,7 +1,7 @@
 package Elektrum::Controller::Doc;
 use Moose;
 no warnings "uninitialized";
-use Pod::Pom;
+use Pod::POM;
 use HTML::Entities;
 use URI::Escape;
 use IO::File;

@@ -3,10 +3,13 @@ model_config:
   resultset: Node
 
 elements:
+#  - type: "Text"
+#    name: "title"
+#    label: "Title"
+
   - type: "Text"
     name: "parent_name"
     label: "Parent"
-
   - type: "Hidden"
     name: "parent"
 

@@ -7,7 +7,7 @@ our $VERSION = "0.01";
 use Catalyst::Runtime 5.80;
 
 use Catalyst qw(
-    Unicode
+    Unicode::Encoding
     ConfigLoader
     Static::Simple
     Authentication
