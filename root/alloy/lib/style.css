@@ -534,22 +534,22 @@ blockquote {
 }
 blockquote:before {
  position:absolute;
- font-size:70px;
+ font-size:5em;
  font-weight:bold;
  float:left;
  content:"“";
  font-family:garamond,georgia,serif;
- -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
- filter:alpha(opacity=50);
- -khtml-opacity:.50;
- -moz-opacity:.50;
- opacity:.5;
+ -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=40)";
+ filter:alpha(opacity=40);
+ -khtml-opacity:.40;
+ -moz-opacity:.40;
+ opacity:.4;
  display:block;
- margin:22px 6px 0 -45px;
+ margin:.25em .5ex 0 -.625em;
  line-height:10px;
  overflow:visible;
  height:auto;
- text-shadow:7px 9px 4px rgba(0,0,22,.6);
+ text-shadow:7px 9px 4px rgba(0,0,22,.3);
  color:[% color_light_blue %];
 }
 

@@ -10,7 +10,7 @@ my $dir = tempdir( CLEANUP => 1 );
 chdir $dir or die "Couldn't chdir $dir";
 
 my $clone = capture_merged { system qw( git clone git://github.com/pangyre/p5-elektrum.git ) };
-$clone =~ qr/Initialized empty Git repository/
+$clone =~ qr/Cloning into p5-elektrum/
     or die "Git repo failed: $clone";
 my $app_dir = "p5-elektrum";
 chdir $app_dir or die "Couldn't chdir $app_dir";
