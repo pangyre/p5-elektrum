@@ -7,6 +7,7 @@ has "rs" =>
     is => "ro",
     isa => "Object",
     writer => "set_rs",
+    init_arg => undef, # No?
     ;
 
 has "model" =>
@@ -22,9 +23,9 @@ after "base" => sub {
     unless ( $self->has_model )
     {
         ( my $model = $class ) =~ s/\A.+::/DBIC::/; # E.g., Elektrum::Controller::Node
-        $self->set_model( $model );
+        $self->set_model( $c->model($model) );
     }
-    $self->set_rs( $c->model( $self->model )->search_rs );
+    $self->set_rs( $self->model->search_rs );
 };
 
 sub txn_scope_guard {

@@ -1,13 +1,15 @@
 package Elektrum::Controller::Meta;
 use Moose;
 use SQL::Translator;
-use SQL::Translator;
 use namespace::autoclean;
 BEGIN { extends "Catalyst::Controller" }
 
-sub index : PathPart("") Args(0) {
+sub index :Path :Args(0) {
     my ( $self, $c ) = @_;
 #    $c->stash( template => "node/index.tt" );
+    $c->stash( ppid => getppid(),
+                pid => $$,
+        );
 }
 
 sub spec : Local Args(0) {

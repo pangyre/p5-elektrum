@@ -1,5 +1,15 @@
+<h2>Links</h2>
 <ul>
   <li><a href="./spec">Specifications</a></li>
   <li><a href="./schema">Schema</a></li>
   <li></li>
+</ul>
+
+<h2>Introspection</h2>
+<ul>
+  <li>Parent process: [% ppid %]
+    <ul>
+      <li>Process: [% pid %]</li>
+    </ul>
+  </li>
 </ul>

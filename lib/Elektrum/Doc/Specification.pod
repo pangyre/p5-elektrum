@@ -200,7 +200,7 @@ Site plugins are used to extend DTD for content.
 
 =head1 Various Notes
 
-Let's agree that all "time" strings will be YYYYMMDDHHMMSS and YYYYMMDDHHMMSS.MMM where necessary.
+Let's agree that all "time" strings will be GMT YYYYMMDDHHMMSS and YYYYMMDDHHMMSS.MMM where necessary.
 
 =head1 3.0 functionality
 
@@ -208,11 +208,15 @@ Let's agree that all "time" strings will be YYYYMMDDHHMMSS and YYYYMMDDHHMMSS.MM
 
 <a href="https://github.com/pangyre/p5-elektrum">ElektrumPress</a>, current candidate/prototype. What’s the matter? Don’t you get it?
 
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9/jquery-ui.min.js"></script>
 <script type="text/javascript">//<![CDATA[
 jQuery(function($){
-  $("h4").click(function(){ $("h4 + p").toggle(); }).trigger("click");
+  $("h4 + p").prev().css({cursor:"pointer"})
+         .click(function(){ $(" + p", this).slideToggle("fast"); })
+         .trigger("click");
+  $("h4 + p").prev()
+         .dblclick(function(){ $("h4 + p").slideToggle("fast"); });
 });
 //]]> </script>
 
