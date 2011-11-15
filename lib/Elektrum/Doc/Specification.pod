@@ -200,7 +200,7 @@ Site plugins are used to extend DTD for content.
 
 =head1 Various Notes
 
-Let's agree that all "time" strings will be GMT YYYYMMDDHHMMSS and YYYYMMDDHHMMSS.MMM where necessary.
+Let's agree that all "time" strings will be UTC YYYYMMDDHHMMSS and YYYYMMDDHHMMSS.MMM where necessary.
 
 =head1 3.0 functionality
 
